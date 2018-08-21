@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=GBK">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>THKMC_SAMPLE</title> 
 <meta name="Generator" content="Vim/8.0">
 <meta name="plugin-version" content="vim7.4_v2">
@@ -28,168 +28,168 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 </head>
 <body>
 <pre id='vimCodeElement'>
-<span class="Comment">; thkmc_sample.ini - THKMC �����ļ�����</span>
+<span class="Comment">; thkmc_sample.ini - THKMC 设置文件范本</span>
 <span class="Comment">;</span>
-<span class="Comment">; ������ thkmc.ini �ļ��滵�ˣ�����ʹ�ñ��ļ����� thkmc.ini ��Ȼ�������Ҫ����ע���޸ġ�</span>
+<span class="Comment">; 如果你把 thkmc.ini 文件玩坏了，可以使用本文件覆盖 thkmc.ini ，然后根据需要参照注释修改。</span>
 <span class="Comment">;</span>
-<span class="Comment">; ���ļ��� thkmc.ini �ķ�����ͬʱҲ��һ���﷨�ο��ֲᡣ��Ϊ thkmc.ini ���õ�һ���������﷨��</span>
-<span class="Comment">; ����������Ŀ������������ע�ͣ��ֺſ�ͷ��ÿһ�У����������� THKMC ������ӵ���Ӧ�֡�</span>
-<span class="Comment">; �Ƽ�ʹ�ô��﷨�������ı��༭�����Ķ����ļ���</span>
+<span class="Comment">; 本文件是 thkmc.ini 的范本，同时也是一个语法参考手册。因为 thkmc.ini 有用到一点点特殊的语法。</span>
+<span class="Comment">; 如果你能耐心看完下面的所有注释（分号开头的每一行），相信用起 THKMC 来会更加得心应手。</span>
+<span class="Comment">; 推荐使用带语法高亮的文本编辑器来阅读本文件。</span>
 
 
-<span class="Comment">; [Default] - ȫ�ּ�λ����</span>
+<span class="Comment">; [Default] - 全局键位配置</span>
 <span class="Comment">;</span>
-<span class="Comment">; UP��DOWN��LEFT��RIGHT ����˼�ֱ��� �������������� �ĸ������</span>
+<span class="Comment">; UP、DOWN、LEFT、RIGHT 的意思分别是 ↑、↓、←、→ 四个方向键</span>
 <span class="Special">[Default]</span>
 <span class="Type">UP=</span>W
 <span class="Type">DOWN=</span>S
 <span class="Type">LEFT=</span>A
 <span class="Type">RIGHT=</span>D
 
-<span class="Comment">; ������4�����õ���˼�ǽ� �������� ���ֱ�ӳ�䵽 WSAD ��</span>
+<span class="Comment">; 上面这4行设置的意思是将 ↑↓←→ 键分别映射到 WSAD 。</span>
 
 <span class="Type">Z=</span>j
 <span class="Type">X=</span>k
 <span class="Type">C=</span>l
 <span class="Type">LSHIFT=</span>i
-<span class="Comment">; ������4���ֽ� Z �ĳ� J��X �ĳ� K��C �ĳ� L��LSHIFT����SHIFT���ĳ� I��</span>
-<span class="Comment">; ����Կ�������� jkli ����Сд��������ν����дСд��˼����һ���ġ�</span>
+<span class="Comment">; 上面这4行又将 Z 改成 J，X 改成 K，C 改成 L，LSHIFT（左SHIFT）改成 I。</span>
+<span class="Comment">; 你可以看到上面的 jkli 都是小写，这无所谓，大写小写意思都是一样的。</span>
 <span class="Comment">;</span>
-<span class="Comment">; �Ⱥ��ұ߲�������������ĸ����������óɼ����ϵļ����κΰ�����ֻҪ DirectInput8 ֧�֣�</span>
-<span class="Comment">; ���ھ���֧����Щ�����Լ���λ���Ƹ����д����ο�Դ�롣</span>
+<span class="Comment">; 等号右边不仅仅可以是字母，你可以设置成键盘上的几乎任何按键（只要 DirectInput8 支持）</span>
+<span class="Comment">; 至于具体支持哪些键，以及键位名称该如何写，请参看源码。</span>
 <span class="Comment">; <a href="https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk">https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk</a></span>
 <span class="Comment">;</span>
-<span class="Comment">; ���Ⱥ���ߣ�ֻ����Ϸ��ʵ��ʹ�õ��İ����Żᱻӳ�䡣</span>
-<span class="Comment">; ���� C ������ħ�����ò����ģ����� &quot;C=l&quot; ���ж��ں�ħ������ʵ���ϲ�û��ʲô���ã��ᱻ���Ե��ġ�</span>
+<span class="Comment">; 而等号左边，只有游戏中实际使用到的按键才会被映射。</span>
+<span class="Comment">; 比如 C 键，红魔乡是用不到的，所以 &quot;C=l&quot; 这行对于红魔乡来讲实际上并没有什么卵用，会被忽略掉的。</span>
 <span class="Comment">;</span>
-<span class="Comment">; ����Ҫ֪��һ����Ϸ�����õ�����Щ��λ��ֻҪ����һ�� thkmc��������򿪳���Ӧ�ò�������ѡ����Ҫ�ļ���EXE��Ȼ������Ϣ���л���ʾ�ܱ��޸ĵļ�λ��</span>
-<span class="Comment">; �����ֻ���뿴��λ�������޸�EXE������Ӧ�ò���ǰ��ѡ������ģʽ����ѡ��</span>
+<span class="Comment">; 若想要知道一个游戏具体用到了哪些键位，只要运行一下 thkmc，点击“打开程序并应用补丁”，选择你要改键的EXE，然后在消息框中会显示能被修改的键位。</span>
+<span class="Comment">; 如果你只是想看键位但不想修改EXE，请在应用补丁前勾选“测试模式”复选框。</span>
 <span class="Comment">;</span>
-<span class="Comment">; ������Ⱥ��ұ���������</span>
-<span class="Comment">; ����Ⱥ��ұ���������������ʮ�����ƣ��� 0x ��ͷ�������������ֱ�Ӵ��� DirectInput8 ɨ���롣</span>
-<span class="Comment">; ���磺��GRAVE��������`������ͨ��λ�������������ּ� 1 ��ߣ���ɨ����Ϊ 0x29����ô�������INI��д��ESC=0x29�����ߡ�ESC=41������д��ESC=GRAVE���Ǻ�������ġ�</span>
-<span class="Comment">; ��ע�⡿�����Ƕ�˵�������Ҫ�� Z ��ӳ�䵽���ּ��ϣ����硰1��������д�� ��Z=1������Ҫд�� ��Z=VK1������Ϊ����� 1 ����ɨ����Ϊ 1 �ļ����� KeyNamesDX.ahk ��֪�ü��� ��ESC������</span>
-<span class="Comment">; ��Ȼ���������ּ���1����ɨ������ 0x02�����Կ���д�ɡ�Z=0x02�����ߡ�Z=2������������д���Ի��ˣ������ñ�������Ϊ�����ּ�&quot;2&quot;��</span>
+<span class="Comment">; 【如果等号右边是整数】</span>
+<span class="Comment">; 如果等号右边是整数（可以是十六进制（以 0x 开头）），则该整数直接代表 DirectInput8 扫描码。</span>
+<span class="Comment">; 比如：“GRAVE”（即“`”键，通常位于主键盘区数字键 1 左边）的扫描码为 0x29，那么如果你在INI中写“ESC=0x29”或者“ESC=41”，和写“ESC=GRAVE”是毫无区别的。</span>
+<span class="Comment">; 【注意】换个角度说，如果你要将 Z 键映射到数字键上，比如“1”，不能写作 “Z=1”，而要写作 “Z=VK1”（因为这里的 1 代表扫描码为 1 的键，查 KeyNamesDX.ahk 可知该键是 “ESC”），</span>
+<span class="Comment">; 当然，由于数字键“1”的扫描码是 0x02，所以可以写成“Z=0x02”或者“Z=2”。不过这样写很迷惑人，容易让别人误以为是数字键&quot;2&quot;。</span>
 
 
 
 
-<span class="Comment">; ��������Ϸ��ר�����á�</span>
+<span class="Comment">; 【各个游戏的专属配置】</span>
 <span class="Comment">;</span>
-<span class="Comment">; [Default] �ε�ӳ�����û�Ӧ�õ�������Ϸ�����ҪΪÿ����Ϸ��������/�޸�/ɾ��ӳ�䣬���Դ���һ������Ϸ����Ϊ���ĶΣ�Ȼ��������д��Ҫ�޸ĵ�ӳ�䡣</span>
+<span class="Comment">; [Default] 段的映射配置会应用到所有游戏，如果要为每个游戏单独添加/修改/删除映射，可以创建一个以游戏代号为名的段，然后在下面写你要修改的映射。</span>
 <span class="Comment">;</span>
-<span class="Comment">; �����г�������Ϸ�Ĵ��ź����Ӧ����Ϸ���ƣ�</span>
+<span class="Comment">; 以下列出所有游戏的代号和其对应的游戏名称：</span>
 <span class="Comment">;</span>
-<span class="Comment">; th6     : ������ħ�� 1.02h ����ԭ��</span>
-<span class="Comment">; th6     : ������ħ�� �泡�����棨**���������ѿ�**��</span>
-<span class="Comment">; th7     : ���������� 1.00b ����ԭ�桢�泡������</span>
-<span class="Comment">; th8     : ������ҹ�� 1.00d ����ԭ�桢�泡������</span>
-<span class="Comment">; th10    : ��������¼ 1.00a ����ԭ�桢�����Ȳ�ίԱ�Ẻ����</span>
-<span class="Comment">; th11    : ��������� 1.00a ����ԭ��</span>
-<span class="Comment">; th12    : ���������� 1.00b ����ԭ��</span>
-<span class="Comment">; th125   : �����Ļ���DS 1.00a ����ԭ��</span>
-<span class="Comment">; th128   : ������ս�� ~ �������¾� 1.00a ����ԭ��</span>
-<span class="Comment">; th13    : ���������� 1.00c ����ԭ��</span>
-<span class="Comment">; th14    : ��������� 1.00b ����ԭ�桢���񺺻���</span>
-<span class="Comment">; th143   : ��Ļ��а�� 1.00a ����ԭ�桢���񺺻���</span>
-<span class="Comment">; th15    : ������鴫 1.00b ����ԭ�桢���񺺻���</span>
-<span class="Comment">; alcostg : �ƻ�Ƴ� 1.00a</span>
+<span class="Comment">; th6     : 东方红魔乡 1.02h 日文原版</span>
+<span class="Comment">; th6     : 东方红魔乡 渔场汉化版（**主程序需脱壳**）</span>
+<span class="Comment">; th7     : 东方妖妖梦 1.00b 日文原版、渔场汉化版</span>
+<span class="Comment">; th8     : 东方永夜抄 1.00d 日文原版、渔场汉化版</span>
+<span class="Comment">; th10    : 东方风神录 1.00a 日文原版、东方喝茶委员会汉化版</span>
+<span class="Comment">; th11    : 东方地灵殿 1.00a 日文原版</span>
+<span class="Comment">; th12    : 东方星莲船 1.00b 日文原版</span>
+<span class="Comment">; th125   : 东方文花帖DS 1.00a 日文原版</span>
+<span class="Comment">; th128   : 妖精大战争 ~ 东方三月精 1.00a 日文原版</span>
+<span class="Comment">; th13    : 东方神灵庙 1.00c 日文原版</span>
+<span class="Comment">; th14    : 东方辉针城 1.00b 日文原版、喵玉汉化版</span>
+<span class="Comment">; th143   : 弹幕天邪鬼 1.00a 日文原版、喵玉汉化版</span>
+<span class="Comment">; th15    : 东方绀珠传 1.00b 日文原版、喵玉汉化版</span>
+<span class="Comment">; alcostg : 黄昏酒场 1.00a</span>
 <span class="Comment">;</span>
-<span class="Comment">; ���磺</span>
-<span class="Comment">; ���ҪΪ��ħ�磨�����泡�����棩�޸�һЩӳ�䣬��ô��ֻҪ�� [th6] ��д����Ҫ����/�޸�/ɾ����ӳ�伴�ɡ�</span>
-<span class="Comment">; �� [th6] ����û���ᵽ��ӳ����Ȼ���� [Default] ���в��ҡ�</span>
+<span class="Comment">; 例如：</span>
+<span class="Comment">; 如果要为红魔乡（包括渔场汉化版）修改一些映射，那么就只要在 [th6] 下写上需要添加/修改/删除的映射即可。</span>
+<span class="Comment">; 在 [th6] 段中没有提到的映射仍然会在 [Default] 段中查找。</span>
 
 
-<span class="Comment">; �������������ö��е�ӳ�䡿</span>
+<span class="Comment">; 【导入其他配置段中的映射】</span>
 <span class="Comment">;</span>
-<span class="Comment">; ������� [th6] ��д��һЩӳ�䣬ϣ��Ҳ���� [th7] ��ʹ�ã���ô�㲻�ظ���ճ����ֻ��Ҫ�� [th7] ��������һ�У�</span>
+<span class="Comment">; 如果你在 [th6] 下写了一些映射，希望也能在 [th7] 里使用，那么你不必复制粘贴，只需要在 [th7] 下面添加一行：</span>
 <span class="Comment">;</span>
 <span class="Comment">; INCLUDE=th6</span>
 <span class="Comment">; </span>
-<span class="Comment">; ���ɡ�</span>
+<span class="Comment">; 即可。</span>
 
 
-<span class="Comment">; ��ɾ��ӳ�䡿</span>
-<span class="Comment">; ������ [Default] ����д�õĻ����Ǵ��������� INCLUDE ��һ��ӳ�䣬</span>
-<span class="Comment">; ���� UP=W�����Ҫ������һ����Ϸ������ɾ����ӳ�䣨�ָ��Ϸ����ԭ�еĹ��ܣ�������д�ɣ�</span>
+<span class="Comment">; 【删除映射】</span>
+<span class="Comment">; 对于在 [Default] 段中写好的或者是从其他段中 INCLUDE 的一个映射，</span>
+<span class="Comment">; 比如 UP=W，如果要在另外一个游戏配置中删除该映射（恢复上方向键原有的功能），可以写成：</span>
 <span class="Comment">;</span>
 <span class="Comment">; UP=UP</span>
 <span class="Comment">;</span>
-<span class="Comment">; ���߸ɴ���ȫʡ�ԵȺ��ұߵ����ݣ�д�ɣ�</span>
+<span class="Comment">; 或者干脆完全省略等号右边的内容，写成：</span>
 <span class="Comment">;</span>
 <span class="Comment">; UP=</span>
 <span class="Comment">;</span>
-<span class="Comment">; ���ɡ�</span>
+<span class="Comment">; 即可。</span>
 
 
-<span class="Comment">; �����ӳ���ͻ��</span>
-<span class="Comment">; �µ�ӳ�������ԭ��ӳ���ͻ��</span>
-<span class="Comment">; �������Ļ���DS�У���ͨ�غ�Ĳ˵��ϰ�S�������ֶ����¾�������Ƭ��ÿ�ΰ��� S �����������յ���Ч��</span>
-<span class="Comment">; ���Ǳ������Դ��� [Default] �����У�S ����ӳ�䵽���·�����ϡ�</span>
-<span class="Comment">; ���ǣ�ÿ�ΰ�S��ʱ����������һ�񣬵�ͬʱҲ���������յ���Ч��Ҳ����һ���������������ܡ�</span>
-<span class="Comment">; ����Щ��Ʒ���µ�ӳ�����ȫ����ԭ�а����Ĺ��ܡ�</span>
-<span class="Comment">; ��������ҹ���� Result �����а� D �����Ե�����Ϸ��¼�� score.txt �ļ��С�</span>
-<span class="Comment">; ���������Դ��� [Default] �����У�D ����ӳ�䵽���ҷ�����ϡ�</span>
-<span class="Comment">; �����������Ʒ�в��� D �������������ܣ����� D ��ԭ�й���ʧЧ��</span>
+<span class="Comment">; 【解决映射冲突】</span>
+<span class="Comment">; 新的映射可能与原有映射冲突。</span>
+<span class="Comment">; 比如在文花帖DS中，在通关后的菜单上按S键可以手动更新决定性照片。每次按下 S 可以听到拍照的音效。</span>
+<span class="Comment">; 但是本软件自带的 [Default] 配置中，S 键被映射到了下方向键上。</span>
+<span class="Comment">; 于是，每次按S键时光标会向下走一格，但同时也会听到拍照的音效。也就是一个键有了两个功能。</span>
+<span class="Comment">; 但有些作品，新的映射会完全覆盖原有按键的功能。</span>
+<span class="Comment">; 比如在永夜抄的 Result 界面中按 D 键可以导出游戏记录到 score.txt 文件中。</span>
+<span class="Comment">; 而本软件自带的 [Default] 配置中，D 键被映射到了右方向键上。</span>
+<span class="Comment">; 但是在这个作品中不是 D 键有了两个功能，而是 D 键原有功能失效。</span>
 <span class="Comment">;</span>
-<span class="Comment">; ��ô��Ҫ���������ͻ���ǳ��򵥣�ֻ�轫�ܵ�Ӱ���ӳ��������ӳ�䵽���û�г�ͻ�ļ��ϼ��ɡ�</span>
-<span class="Comment">; ��������Ļ����� S ������������ӳ�䵽û�б��õ��ļ��ϣ����� ScrollLock ����</span>
+<span class="Comment">; 那么，要解决上述冲突，非常简单，只需将受到影响的映射再重新映射到别的没有冲突的键上即可。</span>
+<span class="Comment">; 比如对于文花帖的 S 键，可以重新映射到没有被用到的键上，比如 ScrollLock 键：</span>
 
 <span class="Special">[th125]</span>
 <span class="Type">S=</span>ScrollLock
 
-<span class="Comment">; ������ҹ���� D ����Ҳ����ӳ�䵽û�б��õ��ļ��ϣ�����ͬ���� ScrollLock ����</span>
+<span class="Comment">; 对于永夜抄的 D 键，也可以映射到没有被用到的键上，比如同样是 ScrollLock 键。</span>
 
 <span class="Special">[th8]</span>
 <span class="Type">D=</span>ScrollLock
 
-<span class="Comment">; �������Ļ���DS�а� ScrollLock ��������ԭ�� S ���Ĺ��ܣ�</span>
-<span class="Comment">; ������ҹ���а� ScrollLock ��������ԭ�� D ���Ĺ��ܡ�</span>
+<span class="Comment">; 现在在文花帖DS中按 ScrollLock 键，就是原来 S 键的功能；</span>
+<span class="Comment">; 而在永夜抄中按 ScrollLock 键，就是原来 D 键的功能。</span>
 
 
 
 
 
-<span class="Comment">; th10 - ��������¼</span>
+<span class="Comment">; th10 - 东方风神录</span>
 <span class="Special">[th10]</span>
-<span class="Comment">; �������ǿ�һ�����﷨���ҽ�������λ���á���</span>
+<span class="Comment">; 这里我们看一个新语法，我叫它“键位引用”：</span>
 
 <span class="Type">ESC=</span>th8:D
 
-<span class="Comment">; ��仰��ʾȡ������ [th8] ��Ϊ��ĸ�� &quot;D&quot; ���õ�ֵ����Ӧ�õ����Σ�[th10]�� �� &quot;ESC&quot; �����λ�ϡ�</span>
-<span class="Comment">; ������ [th8] ��д�� D=ScrollLock ��������仰�͵�ͬ�� ESC=ScrollLock ��</span>
-<span class="Comment">; Ҳ����˵�����ڷ���¼�ﰴ ScrollLock ����ԭ���� ESC ��</span>
-<span class="Comment">; ���ֶ�����������ͬ���ǣ������������� D=ScrollLock ������ ESC �ļ�λҲ���Զ����Ÿ��ˡ�</span>
+<span class="Comment">; 这句话表示取出上面 [th8] 中为字母键 &quot;D&quot; 设置的值，再应用到本段（[th10]） 的 &quot;ESC&quot; 这个键位上。</span>
+<span class="Comment">; 而上面 [th8] 里写着 D=ScrollLock ，所以这句话就等同于 ESC=ScrollLock 。</span>
+<span class="Comment">; 也就是说现在在风神录里按 ScrollLock 等于原来按 ESC 。</span>
+<span class="Comment">; 跟手动拷贝过来不同的是，当你改了上面的 D=ScrollLock 后，这里 ESC 的键位也会自动跟着改了。</span>
 
 <span class="Comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
-<span class="Comment">; ���滹�� [th12],[th13], ... ���Լ�����ɡ���</span>
+<span class="Comment">; 下面还有 [th12],[th13], ... 请自己补充吧……</span>
 
 
 
-<span class="Comment">; [thkmc] ����һЩ��������ʱ����������λӳ���޹ء�</span>
-<span class="Comment">; ������ THKMC ���������޸ģ�������ֱ��������������á�</span>
+<span class="Comment">; [thkmc] 段是一些程序运行时的配置项，与键位映射无关。</span>
+<span class="Comment">; 建议在 THKMC 主界面中修改，而不是直接在这里更改设置。</span>
 <span class="Special">[thkmc]</span>
 
-<span class="Comment">; DoBackup�����ݷ�ʽ�������ļ���=ԭ�ļ���.thkmcbackup</span>
-<span class="Comment">;   1 = ֻ�ڱ����ļ�������ʱ����(Ĭ��)</span>
-<span class="Comment">;   2 = ���Ǳ���(�������еı����ļ�)</span>
-<span class="Comment">;   3 = ������</span>
+<span class="Comment">; DoBackup：备份方式。备份文件名=原文件名.thkmcbackup</span>
+<span class="Comment">;   1 = 只在备份文件不存在时备份(默认)</span>
+<span class="Comment">;   2 = 总是备份(覆盖已有的备份文件)</span>
+<span class="Comment">;   3 = 不备份</span>
 <span class="Type">DoBackup=</span><span class="Number">1</span>
 
-<span class="Comment">; TestMode������ģʽ���������ģ��򲹶��Ĺ��̣�����ʾ�޸Ľ���������ᴴ��/�޸�EXE�ļ��ͱ����ļ���</span>
-<span class="Comment">;   1 = ����</span>
-<span class="Comment">;   0 = �ر�</span>
+<span class="Comment">; TestMode：测试模式。开启后会模拟打补丁的过程：会显示修改结果，但不会创建/修改EXE文件和备份文件。</span>
+<span class="Comment">;   1 = 开启</span>
+<span class="Comment">;   0 = 关闭</span>
 <span class="Type">TestMode=</span><span class="Number">0</span>
 
 
-<span class="Comment">; ����ܽ�һ�£����� [thkmc] �⣬ÿ�����е��������д�����������֣�</span>
+<span class="Comment">; 最后总结一下，除了 [thkmc] 外，每个段中的设置项的写法有以下三种：</span>
 <span class="Comment">;</span>
-<span class="Comment">; 1. ԭ��λ=�¼�λ</span>
-<span class="Comment">; 2. INCLUDE=����</span>
-<span class="Comment">; 3. ԭ��λ=����:��λ</span>
-<span class="Comment">; 4. ԭ��λ=ԭ��λ      ���Լ�дΪ�� ԭ��λ=</span>
+<span class="Comment">; 1. 原键位=新键位</span>
+<span class="Comment">; 2. INCLUDE=段名</span>
+<span class="Comment">; 3. 原键位=段名:键位</span>
+<span class="Comment">; 4. 原键位=原键位      可以简写为： 原键位=</span>
 <span class="Comment">;</span>
-<span class="Comment">; * ��λ���õ����ȼ���[��Ϸ����] &gt; [��Ϸ����]�е�INCLUDE &gt; [Default] &gt; [Default]�е�INCLUDE</span>
+<span class="Comment">; * 键位设置的优先级：[游戏代号] &gt; [游戏代号]中的INCLUDE &gt; [Default] &gt; [Default]中的INCLUDE</span>
 
 </pre>
 </body>

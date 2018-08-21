@@ -21,6 +21,7 @@ thkmc_sample_ini.html: ../thkmc_sample.ini | tohtmlhelper.vim
 tohtmlhelper.vim:
 	@echo ---- Creating $@ ...
 	echo set nonumber nofoldenable > $@
+	echo set fenc=utf-8 bomb >> $@
 	echo TOhtml >> $@
 	echo g/^<title^>/normal cc^<title^>THKMC_SAMPLE^</title^> >> $@
 	echo sav! thkmc_sample_ini.html >> $@

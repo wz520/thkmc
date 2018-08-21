@@ -12,7 +12,7 @@
 #include LVUtils.ahk
 
 title           = THKMC
-helpfilecmd     = help.html,https://wz520.github.io/thkmc/
+helpfilecmd     = help.html,https://wz520.github.io/thkmc/help.html
 g_bakfilesuffix = .thkmcbackup ; 备份文件后缀
 g_inifilepath   = thkmc.ini
 

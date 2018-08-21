@@ -6,7 +6,7 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 
 ## 文档
 
-* <https://wz520.github.io/thkmc/>
+* <https://wz520.github.io/thkmc/help.html>
 
 ## 编译工具
 

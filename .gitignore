@@ -1,0 +1,16 @@
+tags
+
+*.log
+*__.*
+*__
+
+*.bak
+*.*~
+
+*.exe
+recentfiles*
+thkmc.ini
+README.html
+/style.css
+*.zip
+*.cmd

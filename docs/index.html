@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#thkmc---东方stg专用键盘映射修改工具">THKMC - 东方STG专用键盘映射修改工具</a><ul>
+<li><a href="#功能">功能</a></li>
+<li><a href="#特点">特点</a></li>
+<li><a href="#支持的游戏版本">支持的游戏版本</a></li>
+<li><a href="#使用方法">使用方法</a><ul>
+<li><a href="#使用时的注意事项">使用时的注意事项</a></li>
+<li><a href="#使用技巧">使用技巧</a></li>
+</ul></li>
+<li><a href="#ini-设置项说明">INI 设置项说明</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+<li><a href="#联系作者">联系作者</a></li>
+<li><a href="#更新地址更新历史">更新地址＆更新历史</a></li>
+</ul></li>
+</ul>
+</div>
+<h1 id="thkmc---东方stg专用键盘映射修改工具">THKMC - 东方STG专用键盘映射修改工具</h1>
+<p>当前版本: <code>1.0</code></p>
+<h2 id="功能">功能</h2>
+<p>众所周知，ZUN 制作的 东方STG 从来就不自带更改键盘键位的功能。为此，各路大神都写过各种键盘映射工具，但大多是外挂式的。随着新版本的 Windows 对系统安全性的要求越来越高，这些外挂式的改键工具都可能存在兼容性问题。</p>
+<p>THKMC(TouHou Keyboard Mapping Changer) 通过修改东方STG游戏主程序文件中与键盘映射相关的代码，实现自定义游戏键位。</p>
+<p>东方STG获取键盘按键状态的方法有两种：<code>使用 DirectInput</code> 和 <code>不使用 DirectInput</code> 。 其中 <code>使用 DirectInput</code> 是通过调用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.idirectinputdevice8.idirectinputdevice8.getdevicestate(v=vs.85).aspx">IDirectInputDevice8::GetDeviceState()</a> 来获取键盘状态的；而不使用 <code>DirectInput</code> 则是使用 Win32 API 中的 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646299(v=vs.85).aspx">GetKeyboardState()</a>。</p>
+<p>本程序 <strong>只支持</strong> 对使用 DirectInput 方式获取的按键映射进行更改。所以要求在游戏自带的 custom.exe 程序中不能勾选 “不使用 DirectInput 获取键盘输入”。若勾选的话使用本程序改键将没有任何效果。（不过一般不会有人去勾选吧，因为游戏默认的不勾选也能工作得很好）。</p>
+<h2 id="特点">特点</h2>
+<p>相比较其他常见的外挂式通用键位修改工具，因为 THKMC 是为特定的EXE文件量身定制的，所以只要游戏版本正确且用户写的配置文件内容无问题，改键后通常不会有出错或者失效的现象发生。</p>
+<p>本程序可修改的键位不仅包括在STG中用到的各种控制键（↑、↓、←、→、Z、X、C、SHIFT、CTRL、ESC等），还包括：</p>
+<ul>
+<li>截图键（<code>Home</code>或<code>P</code>）</li>
+<li><code>R</code>（ <code>ESC+R</code> 可以快速 RETRY）</li>
+<li><code>D</code>（永夜抄 RESULT 画面会用到，可以将游戏纪录保存到文件中）</li>
+<li>以及其他游戏中用到的一切键位。
+<ul>
+<li>不过 Windows 窗口程序的通用键位是改不了的，比如 <code>Alt+Space</code> 打开系统菜单， <code>Alt+F4</code> 关闭窗口什么的，这是 Windows 管的，本工具无法对这些系统组合键进行重映射。</li>
+</ul></li>
+</ul>
+<p>除此之外，还有这些优点：</p>
+<ul>
+<li>对于同一个玩家来讲，改键位一般不是经常要干的事情。直接改 EXE 的方法可以做到一劳永逸，玩家运行游戏时无需再运行其他辅助工具。</li>
+<li>修改 EXE 只需操作者拥有对该 EXE 文件的读取和写入权限，所以通常不会有因为用户权限或内存布局等原因而导致修改失败的问题发生。</li>
+</ul>
+<p>当然缺点也很明显，就是不通用，除了下面 <code>支持的游戏版本</code> 中所列出的游戏的主程序文件外，不支持任何其他的文件。</p>
+<ul>
+<li>另外，也不能为同一个功能映射多个按键，不过游戏本来就已经有多个映射的除外。
+<ul>
+<li>比如在几乎所有的东方STG游戏中 <code>小键盘8</code> 的作用和 <code>↑</code> 方向键 相同，属于一个功能有多个映射的例子，本程序可以分别将它们映射到不同的功能上。</li>
+</ul></li>
+</ul>
+<h2 id="支持的游戏版本">支持的游戏版本</h2>
+<ul>
+<li>东方红魔乡 1.02h 日文原版</li>
+<li>东方红魔乡 渔场汉化版（<strong>主程序需脱壳</strong>）</li>
+<li>东方妖妖梦 1.00b 日文原版、渔场汉化版</li>
+<li>东方永夜抄 1.00d 日文原版、渔场汉化版</li>
+<li>东方文花帖 1.02a 日文原版</li>
+<li>东方风神录 1.00a 日文原版、东方喝茶委员会汉化版</li>
+<li><strong>（地灵殿空缺中）</strong></li>
+<li>东方星莲船 1.00b 日文原版</li>
+<li>东方文花帖DS 1.00a 日文原版</li>
+<li>妖精大战争 ~ 东方三月精 1.00a 日文原版</li>
+<li>东方神灵庙 1.00c 日文原版</li>
+<li>东方辉针城 1.00b 日文原版、喵玉汉化版</li>
+<li>弹幕天邪鬼 1.00a 日文原版、喵玉汉化版</li>
+<li>东方绀珠传 1.00b 日文原版、喵玉汉化版</li>
+<li>黄昏酒场 1.00a</li>
+</ul>
+<p><strong>注意</strong>：若有哪一作未提到支持汉化版，只是未测试而已，多数情况下只要游戏版本号相同应该也能支持</p>
+<p><em>对于其他打了非官方补丁的版本，本程序可能也能识别，但不保证能达到正确的修改效果。</em></p>
+<ul>
+<li>喵玉汉化版请选择原版的 exe（比如 th14.exe），而不是带 c 的 exe（比如 th14c.exe，那只是个启动器而已，而非游戏主程序）。</li>
+<li><strong>花映冢</strong>由于比较复杂，所以暂时坑掉。</li>
+<li><strong>地灵殿</strong>目前其实是可以打补丁的，但是打了补丁也没用，原因在ZUN。请参见下面的 <code>常见问题</code>。</li>
+</ul>
+<h2 id="使用方法">使用方法</h2>
+<ol style="list-style-type: decimal">
+<li>启动 thkmc.exe 。
+<ul>
+<li>初次启动会自动生成 thkmc.ini 文件。</li>
+</ul></li>
+<li>点击左上角的“编辑 thkmc.ini”，根据自己的喜好更改键位。
+<ul>
+<li>默认情况下所有游戏都会改成以下键位：
+<ul>
+<li>↑=W</li>
+<li>↓=S</li>
+<li>←=A</li>
+<li>→=D</li>
+<li>Z=J</li>
+<li>X=K</li>
+<li>C=L</li>
+<li>左SHIFT=I</li>
+</ul></li>
+<li>若要改成其他键位请参考本程序源代码中的 <a href="https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk">KeyNamesDX.ahk</a></li>
+<li>完整的 INI 编写说明可参考安装目录下的 <a href="https://github.com/wz520/thkmc/blob/master/thkmc_sample.ini">thkmc_sample.ini</a></li>
+</ul></li>
+<li>点击上面的“打开游戏程序并应用改键补丁”按钮。</li>
+<li>选择一个本程序支持的东方STG的主程序。</li>
+<li>自动根据 thkmc.ini 里设置的键位修改程序，并覆盖原EXE。
+<ul>
+<li>如果 INI 中设置了备份选项，那么在覆盖前会自动备份。</li>
+</ul></li>
+<li>成功应用补丁的EXE会添加到列表中，以后可以通过双击再次应用补丁，也可以通过右键菜单直接运行该程序。</li>
+</ol>
+<h3 id="使用时的注意事项">使用时的注意事项</h3>
+<p>本程序仅仅通过 EXE 的文件大小和 PE 文件头中的UNIX时间戳(dwTimestamp) 来判断是哪个游戏，所以应该可以兼容各种打过第三方补丁（包括汉化补丁）的版本。</p>
+<ul>
+<li>【<strong>注意</strong>】一个例外是红魔乡渔场汉化版，这个版本的 EXE 因为是加过壳的，所以无法直接修改，必须要脱过壳的版本才可以。
+<ul>
+<li>而且网上流传的红魔乡渔场汉化版与最新的日文版版本号不同，并非 1.02h （这也是为什么只有红魔乡的汉化版不能使用VP的原因）。为此有人针对 1.02h 做过一个汉化版，可以使用 VP。获取方式请自行搜索。</li>
+</ul></li>
+</ul>
+<p><del>由于作者患有懒癌晚期，</del>本程序在修改前不会校验被修改的数据，所以如果有哪个第三方补丁修改的地方恰好与本程序相同，或者在补丁数据位置之前插入了其他数据导致位置发生了偏差，那么应用改键补丁后的结果将<strong>没有人知道</strong>！</p>
+<h3 id="使用技巧">使用技巧</h3>
+<ul>
+<li>支持文件拖拽。不过目前没有确认提示。</li>
+</ul>
+<h2 id="ini-设置项说明">INI 设置项说明</h2>
+<p>请参阅软件目录下的 <a href="https://github.com/wz520/thkmc/blob/master/thkmc_sample.ini">thkmc_sample.ini</a> 文件。</p>
+<ul>
+<li>或者直接用浏览器看 <a href="https://wz520.github.io/thkmc/thkmc_sample_ini.html">带高亮版的 thkmc_sample.ini</a> 。</li>
+</ul>
+<h2 id="常见问题">常见问题</h2>
+<ul>
+<li><p>如何从打过补丁后的EXE中获取键位？</p>
+<blockquote>
+<p>目前无法获取。</p>
+</blockquote></li>
+<li><p><strong>地灵殿键位修改无效。</strong></p>
+<blockquote>
+由于 ZUN 的疏忽，其实把补丁打进去，也并没有什么卵用。打开游戏目录下的 log.txt 后你会看到有 <code>DirectInput SetCooperativeLevel</code> 字样，这表示 DirectInput 初始化失败。
+<ul>
+<li>由于本程序改的是 DirectInput 按键处理相关的代码，当 DirectInput 初始化失败后就不会运行这些修改后的代码，自然会导致改键失效。</li>
+<li>这是 ZUN 的锅，因为就算你不用 THKMC 打补丁，log.txt 中也会有上述错误信息。
+<ul>
+<li>原因是 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.idirectinputdevice8.idirectinputdevice8.setcooperativelevel(v=vs.85).aspx">IDirectInputDevice8::SetCooperativeLevel</a> 函数 需要传个游戏主窗口的句柄(HWND)，但是它接受到的 HWND 永远为 0。由于此函数不接受值为 0 的窗口句柄，于是返回失败。
+<ul>
+<li><strong>HWND永远为 0 的罪魁祸首</strong>： HWND 需要通过调用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms632680(v=vs.85).aspx">CreateWindowEx()</a> 函数获得，但是 ZUN 在调用 CreateWindowEx <strong>之前</strong> 调用了 <code>SetCooperativeLevel</code>。也就是说从游戏启动到 <code>SetCooperativeLevel</code> 被调用前，HWND 的值没有被修改过。由于 HWND 的地址位于全局静态区，所以就永远为 0 ！</li>
+<li>此 BUG 在星莲船里就被修正了，而且在之前的作品也没有这个BUG，所以是地灵殿独有的BUG。<del>（于是2un你既然在星莲船里已经修正了这个BUG为什么不给地灵殿也出个补丁啊！（摔</del></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>以后可能会支持吧……（不确定</p>
+</blockquote></li>
+<li><p>各种杀软报毒？</p>
+<blockquote>
+<p>本程序使用 <a href="https://autohotkey.com/">AutoHotkey</a> 语言编写，并使用 <a href="http://www.matcode.com/mpress.htm">MPRESS</a> 压缩。可能有些杀软对 MPRESS 壳敏感。若报毒请添加信任。</p>
+<p>作者承诺决不暗藏任何恶意代码。不信自己看源代码吧。</p>
+</blockquote></li>
+</ul>
+<h2 id="联系作者">联系作者</h2>
+<p><span class="citation">@wz520</span> 度娘贴吧ID: <a href="http://tieba.baidu.com/home/main?id=f861cceccab9b5c4bccfcbf83d00&amp;fr=userbar">天使的枷锁</a> <span class="mail"><a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x77;&#x69;&#110;&#x67;&#122;&#x65;&#114;&#x6f;&#x31;&#48;&#52;&#48;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;" class="email">&#37038;&#x7bb1;</a></span></p>
+<h2 id="更新地址更新历史">更新地址＆更新历史</h2>
+<p>本程序的新版本可以在以下地址获取到：</p>
+<ul>
+<li>编译版＆更新历史：<a href="https://github.com/wz520/thkmc/releases" class="uri">https://github.com/wz520/thkmc/releases</a></li>
+<li>源代码：<a href="https://github.com/wz520/thkmc" class="uri">https://github.com/wz520/thkmc</a></li>
+</ul>
+<p>我编写的其他小程序：</p>
+<ul>
+<li><a href="https://www.zybuluo.com/wz520/note/15842" class="uri">https://www.zybuluo.com/wz520/note/15842</a></li>
+</ul>
+</body>
+</html>

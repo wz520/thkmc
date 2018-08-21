@@ -1,0 +1,390 @@
+﻿body {
+	/* font-family: Segoe UI, "Microsoft YaHei", Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; */
+	font-family: Segoe UI, "Microsoft YaHei", Arial, sans-serif, 宋体, PMingLiU, serif;
+	font-size: 10.5pt;
+	line-height: 1.5;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #222222;
+	color: white;
+	padding: 10px;
+}
+
+strong {
+	font-size: 1.4em;
+	background-color: yellowgreen;
+	color: blue;
+	border: 3px ridge slateblue;
+	border-radius: 5px;
+	transition: color 0.5s, background-color 0.5s;
+}
+strong:hover {
+	color: red;
+	background-color: bisque ;
+}
+em {
+	font-size: 1.2em;
+}
+
+/* DEPRECATED */
+/*
+em:before {
+	content: "❢ ";
+	font-size: 1.5em;
+	color: crimson;
+}
+em:after {
+	content: " ❢";
+	font-size: 1.5em;
+	color: crimson;
+}
+*/
+em:before {
+	content: "☢CAUTION!!☢ ";
+	font-size: 1.5em;
+	color: crimson;
+	font-style: normal;
+	font-weight: bold;
+}
+em:after {
+	content: " ☢CAUTION!!☢";
+	font-size: 1.5em;
+	color: crimson;
+	font-style: normal;
+	font-weight: bold;
+}
+
+
+div#TOC:before {
+	content: "目录：";
+	font-size: 1.5em;
+}
+div#TOC{
+	border: 3px solid white;
+	border-radius: 5px;
+	line-height: 30%;
+	padding-top: 1em;
+	width: 25em;
+	background-color: darkgreen;
+}
+div#TOC ul{
+	/* list-style-type: square; */
+	/* display: inline; */
+}
+div#TOC ul li{
+	/* display: inline; */
+}
+div#TOC ul li a{
+	color: yellow;
+	transition: background-color 0.5s, color 0.5s;
+}
+div#TOC ul li a:active {
+	color: red;
+}
+div#TOC ul li a:hover {
+	/* color: fuchsia; */
+	/* background-color: darkblue; */
+	color: orange;
+	background-color: darkred;
+	border: 4px inset gray;
+}
+
+body > *:first-child {
+	margin-top: 0 !important;
+}
+body > *:last-child {
+	margin-bottom: 0 !important;
+}
+
+a {transition: color 0.5s;}
+a:link {color:skyblue;}
+a:visited {color:skyblue;}
+a:hover {color:yellow;background-color:blue;}
+a:active {color:red;}
+
+h1 a:link, h1 a:visited {
+	color: hotpink;
+}
+h1 a:hover {color:yellow;background-color:blue;}
+h1 a:active {color:red;}
+
+h2 a:link, h2 a:visited {
+	color: aqua;
+}
+h2 a:hover {color:yellow;background-color:blue;}
+h2 a:active {color:red;}
+
+h2:before {
+	content: "❀ ";
+}
+
+h2.author a:link, h2.author a:visited {
+	color: chartreuse;
+}
+h2.author:before {
+	content: "✍ ";
+	color: red;
+}
+h2.author a:hover {color:yellow;background-color:blue;}
+h2.author a:active {color:red;}
+
+h3:before {
+	content: "☯ ";
+}
+
+/* ADDED */
+h4:before {
+	/* content: "❂ ";*/
+	content: "✦ ";
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 20px 0 10px;
+	padding: 0;
+	font-weight: bold;
+	-webkit-font-smoothing: antialiased;
+	cursor: text;
+	position: relative;
+}
+h1 {
+	font-size: 28px;
+	color: magenta;
+	text-align: center;
+}
+h2 {
+	font-size: 24px;
+	border-bottom: 1px solid #cccccc;
+	color: aqua;
+}
+h3 {
+	font-size: 18px;
+	color: gold;
+}
+h4 {
+	font-size: 16px;
+}
+h5 {
+	font-size: 14px;
+}
+h6 {
+	color: #777777;
+	font-size: 14px;
+}
+p, blockquote, ul, ol, dl, li, table, pre {
+	margin: 15px 0;
+}
+hr {
+	background: transparent;
+	/* border: 0 none; */
+	color: #333333;
+	height: 4px;
+	padding: 0;
+}
+body > h2:first-child {
+	margin-top: 0;
+	padding-top: 0;
+}
+body > h1:first-child {
+	margin-top: 0;
+	padding-top: 0;
+}
+body > h1:first-child + h2 {
+	margin-top: 0;
+	padding-top: 0;
+}
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+	margin-top: 0;
+}
+li p.first {
+	display: inline-block;
+}
+ul, ol {
+	padding-left: 30px;
+}
+
+
+/* DEPRECATED */
+/*
+ol > li {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-color: goldenrod;
+}
+*/
+ol > li {
+	border-width: 1px;
+	border-style: solid;
+	border-color: goldenrod;
+}
+
+ul :first-child, ol :first-child {
+	margin-top: 0;
+}
+ul :last-child, ol :last-child {
+	margin-bottom: 0;
+}
+dl {
+	padding: 0;
+}
+dl dt {
+	font-size: 1.2em;
+	font-weight: bold;
+	font-style: italic;
+	padding: 0;
+	margin: 15px 0 5px;
+}
+dl dt:first-child {
+	padding: 0;
+}
+dl dt > :first-child {
+	margin-top: 0;
+}
+dl dt > :last-child {
+	margin-bottom: 0;
+}
+dl dd {
+	margin: 0 0 15px;
+	padding: 0 2em;
+}
+dl dd > :first-child {
+	margin-top: 0;
+}
+dl dd > :last-child {
+	margin-bottom: 0;
+}
+blockquote {
+	border-left: 4px solid silver;
+	padding: 0 15px;
+	color: silver;
+}
+blockquote > :first-child {
+	margin-top: 0;
+}
+blockquote > :last-child {
+	margin-bottom: 0;
+}
+table {
+	padding: 0;
+	border: 4px ridge lightgray;
+	/* width: 50%; */
+	caption-side: bottom;
+}
+table tr {
+	border-top: 2px solid yellow;
+	background-color: #202020;
+	margin: 0;
+	padding: 0;
+}
+
+/* table tr:nth-child(2n) { */
+/* 	background-color: #101010; */
+/* } */
+table tr.even {
+	background-color: #101010;
+}
+
+table tr th {
+	font-weight: bold;
+	border: 1px solid yellow;
+	text-align: center;
+	margin: 0;
+	padding: 6px 13px;
+	color: aqua;
+}
+table tr td {
+	border: 1px solid silver;
+	margin: 0;
+	padding: 6px 13px;
+	color: deeppink;
+}
+table tr th :first-child, table tr td :first-child {
+	margin-top: 0;
+}
+table tr th :last-child, table tr td :last-child {
+	margin-bottom: 0;
+}
+img {
+	max-width: 100%;
+	border: 2px groove gray;
+}
+code {
+	margin: 0 2px;
+	padding: 0 5px;
+	white-space: nowrap;
+	border: 1px solid #3a3a3a;
+	background-color: blue;
+	border-radius: 3px;
+	color: lightgreen;
+}
+pre {
+	background-color: #3a2a1a;
+	border: 5px ridge silver;
+	font-size: 13px;
+	line-height: 19px;
+	overflow: auto;
+	padding: 6px 10px;
+	border-radius: 3px;
+	width: 50%;
+	transition: background-color 0.3s;
+}
+pre:hover {
+	background-color: #333;
+}
+pre code {
+	margin: 0;
+	padding: 0;
+	white-space: pre;
+	border: none;
+	background: transparent;
+	background-color: transparent;
+	transition: inherit;
+}
+
+pre, code.sourceCode {
+	color: mintcream;
+	background-color: black;
+}
+
+del {
+	color: black;
+	background-color: black;
+	text-decoration: none;
+}
+
+/* mysign */
+span a {
+	border: 3px outset gray;
+	background-color: darkblue;
+}
+span.mail a:before {
+	font-size: 1.5em;
+	content: "✉ ";
+}
+
+/* footnotes */
+div.footnotes ol:before {
+	content: "✎ 脚注: ";
+	color: deeppink;
+}
+
+/* dl, dt, dd */
+dl {
+	border: 3px ridge green;
+}
+dt {
+	width: 20em;
+	color: lightgreen;
+}
+dd {
+	color: violet;
+	width: 50em;
+}
+dd:before {
+	content: "☞ ";
+}

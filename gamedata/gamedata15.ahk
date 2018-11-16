@@ -95,7 +95,7 @@ F7D8            ; NEG EAX
 24 80           ; AND AL,80
 0FB6C0          ; MOVZX EAX,AL
 F7D8            ; NEG EAX
-
+1BC0            ; SBB EAX,EAX
 83E0 60         ; AND EAX,60
 0BF0            ; OR ESI,EAX
 0FB685 43FFFFFF ; MOVZX EAX,BYTE PTR SS:[EBP-BD]

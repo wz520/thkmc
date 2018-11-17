@@ -1,8 +1,8 @@
-; »ñÈ¡ PE ÎÄ¼şÍ·ĞÅÏ¢
-; Ä¿Ç°Ö»ÄÜ»ñÈ¡ timestamp
+ï»¿; è·å– PE æ–‡ä»¶å¤´ä¿¡æ¯
+; ç›®å‰åªèƒ½è·å– timestamp
 
 class CPEHelper {
-	; pEXEData: Ö¸Ïò EXE Êı¾İµÄÖ¸Õë¡£¡¾×¢Òâ¡¿±¾Àà²»»á¸´ÖÆÖ¸ÕëËùÖ¸ÄÚÈİ¡£
+	; pEXEData: æŒ‡å‘ EXE æ•°æ®çš„æŒ‡é’ˆã€‚ã€æ³¨æ„ã€‘æœ¬ç±»ä¸ä¼šå¤åˆ¶æŒ‡é’ˆæ‰€æŒ‡å†…å®¹ã€‚
 	__New( pEXEData, datasize ) {
 		this._p := pEXEData
 		this._size := datasize
@@ -15,14 +15,14 @@ class CPEHelper {
 			throw Exception("Do not call me twice.  Use isPE property")
 		}
 		result := False
-		; ÎÄ¼ş´óĞ¡±ØĞë´óÓÚ 0x40 (sizeof(IMAGE_DOS_HEADER))
+		; æ–‡ä»¶å¤§å°å¿…é¡»å¤§äº 0x40 (sizeof(IMAGE_DOS_HEADER))
 		if ( this._size > 0x40 ) {
 			; 'MZ' magic number
 			uMZ := NumGet(this._p, 0x00, "UShort")
 			if ( uMZ = 0x5a4d ) {
-				; »ñÈ¡ IMAGE_NT_HEADERS ½á¹¹Æ«ÒÆ
+				; è·å– IMAGE_NT_HEADERS ç»“æ„åç§»
 				oPEHeader := NumGet(this._p, 0x3c, "UInt")
-				; Æ«ÒÆ²»µÃ³¬³öÎÄ¼ş´óĞ¡
+				; åç§»ä¸å¾—è¶…å‡ºæ–‡ä»¶å¤§å°
 				if ( oPEHeader < this._size ) {
 					; 'PE' magic number
 					uPE := NumGet(this._p, oPEHeader+0, "UInt")
@@ -36,7 +36,7 @@ class CPEHelper {
 		return result
 	}
 
-	; Èç¹û isPE Îª False ÔòÈÓÒì³£
+	; å¦‚æœ isPE ä¸º False åˆ™æ‰”å¼‚å¸¸
 	checkIsPE() {
 		if ( !this.isPE ) {
 			throw Exception("Invalid PE Header")
@@ -48,7 +48,7 @@ class CPEHelper {
 		get {
 			this.checkIsPE()
 
-			; PEHeader+08h ¼´ÊÇ timestamp
+			; PEHeader+08h å³æ˜¯ timestamp
 			return NumGet(this._p, this.oPEHeader+0x08, "UInt")
 		}
 		set {

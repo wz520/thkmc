@@ -1,4 +1,4 @@
-; Use with "for loop" to enumerate each selected line of a ListView control in an AHK GUI
+﻿; Use with "for loop" to enumerate each selected line of a ListView control in an AHK GUI
 class LVRow {
 	_NewEnum() {
 		return new CLVRowEnumerator()

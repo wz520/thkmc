@@ -1,6 +1,6 @@
-class THKMC_GameData143 extends THKMC_GameDataBase {
+ï»¿class THKMC_GameData143 extends THKMC_GameDataBase {
 	__New( ) {
-		base.__New("th143", "µ¯Ä»ÌìÐ°¹í 1.00a", 0x53546435, 939008)
+		base.__New("th143", "å¼¹å¹•å¤©é‚ªé¬¼ 1.00a", 0x53546435, 939008)
 		pd = 
 (LTrim Comment
 

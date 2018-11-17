@@ -1,17 +1,17 @@
-; ±¾×÷ºÜ¿ÓµùµÄ°´ [ESP+XX] À´·ÃÎÊ¾Ö²¿±äÁ¿...
-; ¶øÇÒ»áĞŞ¸Ä EBX/BL
+ï»¿; æœ¬ä½œå¾ˆå‘çˆ¹çš„æŒ‰ [ESP+XX] æ¥è®¿é—®å±€éƒ¨å˜é‡...
+; è€Œä¸”ä¼šä¿®æ”¹ EBX/BL
 
 class THKMC_GameDataAlcostg extends THKMC_GameData10 {
 	__New( ) {
 		base.__New()
-		base._setEXEInfo("alcostg", "»Æ»è¾Æ³¡ 1.00a", 0x47755c66, 472064)
+		base._setEXEInfo("alcostg", "é»„æ˜é…’åœº 1.00a", 0x47755c66, 472064)
 		pd = 
 (LTrim Comment
 
 57               ; PUSH EDI
 BF 80000000      ; MOV EDI,80
 
-81C4 94000000 ; add esp, 94  ; ºóÃæµÄµØÖ·×Ü¹² -0x90¡£Ê¹ÓÃ KADD ºÍ KADDForComment ÃüÁî
+81C4 94000000 ; add esp, 94  ; åé¢çš„åœ°å€æ€»å…± -0x90ã€‚ä½¿ç”¨ KADD å’Œ KADDForComment å‘½ä»¤
 
 33C9                 ; XOR ECX,ECX
 8A4C24 A0            ; MOV CL,BYTE PTR SS:[ESP-60]
@@ -120,7 +120,7 @@ F6DA                 ; NEG DL
 8A5424 D1            ; MOV DL,BYTE PTR SS:[ESP-2F]
 
 
-81EC 94000000   ; sub esp, 94  ; »Ö¸´ESP
+81EC 94000000   ; sub esp, 94  ; æ¢å¤ESP
 5F              ; pop edi
 	)
 		this._setPatchData( 0x446a37, 0x446b8e, 0x400c00, 0x80, pd )

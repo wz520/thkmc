@@ -1,10 +1,10 @@
-; ¼Ì³Ð×Ô TH15
+ï»¿; ç»§æ‰¿è‡ª TH15
 
 class THKMC_GameData16 extends THKMC_GameData15 {
 	__New( ) {
 		base.__New()
-		base._setEXEInfo("th16", "¶«·½Ìì¿Õè° 1.00a", 0x597F974D, 683520)
-		; Ö±½Ó¼Ì³Ð th11 µÄ patchdata
+		base._setEXEInfo("th16", "ä¸œæ–¹å¤©ç©ºç’‹ 1.00a", 0x597F974D, 683520)
+		; ç›´æŽ¥ç»§æ‰¿ th15 çš„ patchdata
 		pd := this.patchdata
 		this._setPatchData( 0x401f67, 0x4020e9, 0x400c00, 0x104, pd )
 	}

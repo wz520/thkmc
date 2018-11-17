@@ -1,6 +1,6 @@
-class THKMC_GameData95 extends THKMC_GameDataBase {
+ï»¿class THKMC_GameData95 extends THKMC_GameDataBase {
 	__New( ) {
-		base.__New("th95", "¶«·½ÎÄ»¨Ìû 1.02a", 0x43c68d3f, 696832)
+		base.__New("th95", "ä¸œæ–¹æ–‡èŠ±å¸– 1.02a", 0x43c68d3f, 696832)
 
 
 		pd = 

@@ -1,14 +1,14 @@
-#include PEHelper.ahk
+ï»¿#include PEHelper.ahk
 
-; ÓÃÓÚÉú³ÉÒÑ´ò²¹¶¡µÄEXEµÄÀà
+; ç”¨äºç”Ÿæˆå·²æ‰“è¡¥ä¸çš„EXEçš„ç±»
 class THKMC_PatchProcessor {
 	__New( pEXEData, exesize, kmcdata ) {
-		this._pEXEData := pEXEData ; Ö¸Ïò EXE ¶ş½øÖÆÊı¾İ£¨²»ÊÇHEXÊı¾İ£©µÄÖ¸Õë
-		this._exesize  := exesize  ; EXE ÎÄ¼ş´óĞ¡
-		this._d        := kmcdata  ; THKMC_GameData »òÆä×ÓÀàµÄÊµÀı
+		this._pEXEData := pEXEData ; æŒ‡å‘ EXE äºŒè¿›åˆ¶æ•°æ®ï¼ˆä¸æ˜¯HEXæ•°æ®ï¼‰çš„æŒ‡é’ˆ
+		this._exesize  := exesize  ; EXE æ–‡ä»¶å¤§å°
+		this._d        := kmcdata  ; THKMC_GameData æˆ–å…¶å­ç±»çš„å®ä¾‹
 	}
 
-	; ÓĞ´íÈÓÒì³£
+	; æœ‰é”™æ‰”å¼‚å¸¸
 	doPatch() {
 		global THKMC_KeyNamesDX
 		key_names := THKMC_KeyNamesDX
@@ -16,102 +16,102 @@ class THKMC_PatchProcessor {
 		inifilepath := this._d.inifilepath
 		inifilesection := this._d.gamename
 
-		; »ñÈ¡ Default ¶ÎºÍµ±Ç°ÓÎÏ·ËùÊô¶ÎÖĞÊÇ·ñÓĞ±» INCLUDE section£¬ÈôÓĞÔò¼ÇÏÂ
+		; è·å– Default æ®µå’Œå½“å‰æ¸¸æˆæ‰€å±æ®µä¸­æ˜¯å¦æœ‰è¢« INCLUDE sectionï¼Œè‹¥æœ‰åˆ™è®°ä¸‹
 		IniRead, includesection_default, %inifilepath%, Default, INCLUDE
 		IniRead, includesection, %inifilepath%, %inifilesection%, INCLUDE
 
-		; ±éÀúÓë¼üÎ»Ïà¹ØµÄ²Ù×÷Êı
+		; éå†ä¸é”®ä½ç›¸å…³çš„æ“ä½œæ•°
 		matchstr=
 		startingpos := 1
 		patchdata   := this._d.patchdata
 		Loop {
 			startingpos += StrLen(matchstr1)
-			; ÕÒ³öËùÓĞ BYTE PTR SS:[ EBPorESP ¡À CONST32 ]
+			; æ‰¾å‡ºæ‰€æœ‰ BYTE PTR SS:[ EBPorESP Â± CONST32 ]
 			startingpos := RegExMatch(patchdata, this._d.addrPattern, matchstr, startingpos)
 			if ( !startingpos ) {
-				break ; ÒÑ´¦ÀíÍêËùÓĞ°´¼ü
+				break ; å·²å¤„ç†å®Œæ‰€æœ‰æŒ‰é”®
 			}
 
 			KeymapValue := this._d.str2KeymapValue(matchstr1)
 			if (KeymapValue = "OUT") {
-				continue ; ³¬³ö·¶Î§£¬ ºöÂÔ
+				continue ; è¶…å‡ºèŒƒå›´ï¼Œ å¿½ç•¥
 			}
 
 			; msgbox % KeymapValue
 			KeymapKeys := this._findKeymapKeyFromValue(KeymapValue, key_names)
 			if ( !KeymapKeys.MaxIndex() ) {
-				; DEBUG: ÓÃ»§²»Ó¦¸Ã¿´µ½ÏÂÃæµÄÄÚ²¿´íÎóĞÅÏ¢
-				msg = ¡¾DEBUG¡¿ÄÚ²¿´íÎóERR001¡£
+				; DEBUG: ç”¨æˆ·ä¸åº”è¯¥çœ‹åˆ°ä¸‹é¢çš„å†…éƒ¨é”™è¯¯ä¿¡æ¯
+				msg = ã€DEBUGã€‘å†…éƒ¨é”™è¯¯ERR001ã€‚
 				AddLog(msg, True)
-				continue ; Ö´ĞĞµ½ÕâÀï±íÃ÷ĞèÒªÖØĞÂDEBUG£¬ÏÈÌø¹ı
+				continue ; æ‰§è¡Œåˆ°è¿™é‡Œè¡¨æ˜éœ€è¦é‡æ–°DEBUGï¼Œå…ˆè·³è¿‡
 			}
 
-			; ¿ªÊ¼´Ó INI ÖĞ¶ÁÈ¡¼üÎ»ÉèÖÃ£¬²¢¸ù¾İ this._d ÖĞµÄÉèÖÃĞŞ¸ÄÏàÓ¦µÄ EXE Êı¾İ£¨HEX-ASCII£©
+			; å¼€å§‹ä» INI ä¸­è¯»å–é”®ä½è®¾ç½®ï¼Œå¹¶æ ¹æ® this._d ä¸­çš„è®¾ç½®ä¿®æ”¹ç›¸åº”çš„ EXE æ•°æ®ï¼ˆHEX-ASCIIï¼‰
 			for i, keymap in KeymapKeys {
 				log_message=
-				newkeymap := this._readKeymapFromINI(keymap, this._d.gamename, includesection, log_message) ; µ±Ç°ÓÎÏ·ËùÊô¶Î
+				newkeymap := this._readKeymapFromINI(keymap, this._d.gamename, includesection, log_message) ; å½“å‰æ¸¸æˆæ‰€å±æ®µ
 				if ( newkeymap = "ERROR" || newkeymap = "" ) {
-					newkeymap := this._readKeymapFromINI(keymap, "Default", includesection_default, log_message) ; ¶ÁÈ¡Ê§°Ü£¬³¢ÊÔ´Ó Default ¶Î¶ÁÈ¡
+					newkeymap := this._readKeymapFromINI(keymap, "Default", includesection_default, log_message) ; è¯»å–å¤±è´¥ï¼Œå°è¯•ä» Default æ®µè¯»å–
 					if ( newkeymap = "ERROR" || newkeymap = "" ) {
 						AddLogIfNotEmpty(log_message)
-						continue  ; »¹ÊÇ¶ÁÈ¡Ê§°Ü£¨¸Ã¼üÎ»µÄÉèÖÃ²»´æÔÚ»òÕßµÈºÅÓÒ±ßÎª¿Õ£©£¬Ìø¹ı
+						continue  ; è¿˜æ˜¯è¯»å–å¤±è´¥ï¼ˆè¯¥é”®ä½çš„è®¾ç½®ä¸å­˜åœ¨æˆ–è€…ç­‰å·å³è¾¹ä¸ºç©ºï¼‰ï¼Œè·³è¿‡
 					}
 				}
 
-				; ¼ì²éµÈºÅÓÒ±ßµÄÊÇ·ñÊÇÊıÖµ£¬Èç¹ûÊÇ£¬ÔòÖ±½Ó¿´×öÊÇÉ¨ÃèÂë£¬²»½øĞĞ×ª»»
+				; æ£€æŸ¥ç­‰å·å³è¾¹çš„æ˜¯å¦æ˜¯æ•°å€¼ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™ç›´æ¥çœ‹åšæ˜¯æ‰«æç ï¼Œä¸è¿›è¡Œè½¬æ¢
 				if newkeymap is Integer
 				{
-					newkeymapValue := newkeymap & 0xff  ; É¨ÃèÂëÓ¦¸ÃÖ»ÓĞµÍ 8 Î»ÓĞĞ§
+					newkeymapValue := newkeymap & 0xff  ; æ‰«æç åº”è¯¥åªæœ‰ä½ 8 ä½æœ‰æ•ˆ
 				}
 				else {
 					newkeymapValue := key_names[newkeymap]
 				}
 				if ( newkeymapValue = "" ) {
-					; ¸Ã¼üÎ»Ãû²»´æÔÚÓÚ key_names ¡£ÊÇ¸ö´íÎóµÄ¼üÎ»Ãû
-					errmsg = ÎŞ·¨Îª¡¾%keymap%¡¿ÉèÖÃĞÂÓ³Éä£ºÎŞ·¨Ê¶±ğµÄ¼üÎ»Ãû¡¾%newkeymap%¡¿
+					; è¯¥é”®ä½åä¸å­˜åœ¨äº key_names ã€‚æ˜¯ä¸ªé”™è¯¯çš„é”®ä½å
+					errmsg = æ— æ³•ä¸ºã€%keymap%ã€‘è®¾ç½®æ–°æ˜ å°„ï¼šæ— æ³•è¯†åˆ«çš„é”®ä½åã€%newkeymap%ã€‘
 					throw Exception(errmsg, inifilepath)
 				}
 
 				newkeymapValue := this._d.keymapValue2Str( newkeymapValue )
 
-				; ĞŞ¸ÄÍê±Ï£¬Ìæ»»µôÔ­À´µÄÊı¾İ
+				; ä¿®æ”¹å®Œæ¯•ï¼Œæ›¿æ¢æ‰åŸæ¥çš„æ•°æ®
 				patchdata := RegExReplace(patchdata, "\b" . matchstr1 . "\b", newkeymapValue, replcount, 1, startingpos)
 				if ( replcount = 1 ) {
-					msg = ¡¾ÉèÖÃ³É¹¦¡¿¡¾%keymap%¡¿->¡¾%newkeymap%¡¿
+					msg = ã€è®¾ç½®æˆåŠŸã€‘ã€%keymap%ã€‘->ã€%newkeymap%ã€‘
 					AddLog(msg)
 				}
 				else {
-					errmsg = Ó³Éä¡¾%keymap%¡¿Îª¡¾%newkeymap%¡¿Ê§°Ü£¡
+					errmsg = æ˜ å°„ã€%keymap%ã€‘ä¸ºã€%newkeymap%ã€‘å¤±è´¥ï¼
 					throw Exception(errmsg, inifilepath)
 				}
 			}
 		}
 
-		; ÔÚ patchdata µÄ×îºóÔö¼Ó JMP Ö¸ÁîÒÔÌø×ªµ½Ô­À´µÄÁ÷³Ì
+		; åœ¨ patchdata çš„æœ€åå¢åŠ  JMP æŒ‡ä»¤ä»¥è·³è½¬åˆ°åŸæ¥çš„æµç¨‹
 		codelen           := MCode(code, patchdata)
 		addr_beginjmp     := this._d.patchaddr + codelen
 
-        ; **DEBUG**£¬È·±£²¹¶¡Êı¾İ³¤¶ÈĞ¡ÓÚÔ­Ê¼Êı¾İ³¤¶È¡£ÕâÁ½ÌõĞÅÏ¢²»Ó¦¸Ã³öÏÖÔÚ×îÖÕÓÃ»§ÃæÇ°
+        ; **DEBUG**ï¼Œç¡®ä¿è¡¥ä¸æ•°æ®é•¿åº¦å°äºåŸå§‹æ•°æ®é•¿åº¦ã€‚è¿™ä¸¤æ¡ä¿¡æ¯ä¸åº”è¯¥å‡ºç°åœ¨æœ€ç»ˆç”¨æˆ·é¢å‰
         if ( addr_beginjmp = this._d.patchaddrjmpto ) {
-            throw Exception("²¹¶¡Êı¾İ³¤¶ÈµÈÓÚÔ­Ê¼Êı¾İ³¤¶È¡£Çë½«´ËĞÅÏ¢»ã±¨¸ø×÷Õß¡£", this._d.inifilepath)
+            throw Exception("è¡¥ä¸æ•°æ®é•¿åº¦ç­‰äºåŸå§‹æ•°æ®é•¿åº¦ã€‚è¯·å°†æ­¤ä¿¡æ¯æ±‡æŠ¥ç»™ä½œè€…ã€‚", this._d.inifilepath)
         }
         else if ( addr_beginjmp > this._d.patchaddrjmpto ) {
-            throw Exception("²¹¶¡Êı¾İ³¤¶È³¬¹ıÔ­Ê¼Êı¾İ³¤¶È¡£Çë½«´ËĞÅÏ¢»ã±¨¸ø×÷Õß¡£", this._d.inifilepath)
+            throw Exception("è¡¥ä¸æ•°æ®é•¿åº¦è¶…è¿‡åŸå§‹æ•°æ®é•¿åº¦ã€‚è¯·å°†æ­¤ä¿¡æ¯æ±‡æŠ¥ç»™ä½œè€…ã€‚", this._d.inifilepath)
         }
 
 		patchaddr_diff    := this._d.patchaddrjmpto - addr_beginjmp
 		if ( patchaddr_diff <= 6 ) {
-			; Èô²¹¶¡±ÈÔ­ÄÚÈİÉÙÁË²»´óÓÚ 6 ¸ö×Ö½Ú£¬²¹ÏàÓ¦ÊıÁ¿µÄ NOP
+			; è‹¥è¡¥ä¸æ¯”åŸå†…å®¹å°‘äº†ä¸å¤§äº 6 ä¸ªå­—èŠ‚ï¼Œè¡¥ç›¸åº”æ•°é‡çš„ NOP
 			this._d.patchdata := patchdata . StringRepeat("90", patchaddr_diff)
 		}
 		else {
-			; ´óÓÚ 6 ¸ö×Ö½Ú£¬Ôò²¹ JMP Ìøµ½Ô­À´µÄÁ÷³Ì
+			; å¤§äº 6 ä¸ªå­—èŠ‚ï¼Œåˆ™è¡¥ JMP è·³åˆ°åŸæ¥çš„æµç¨‹
 			calladdr          := addr2CallAddr( addr_beginjmp, this._d.patchaddrjmpto )
 			this._d.patchdata := patchdata . " " . longjmpOrShortjmp("E9", "EB", calladdr)
 		}
 	}
 
-	; ½« patchdata Ğ´ÈëÄÚ´æ£¨·ÇÎÄ¼ş£©ÖĞµÄ EXE Êı¾İ£¨¶ş½øÖÆ£©
+	; å°† patchdata å†™å…¥å†…å­˜ï¼ˆéæ–‡ä»¶ï¼‰ä¸­çš„ EXE æ•°æ®ï¼ˆäºŒè¿›åˆ¶ï¼‰
 	updateEXECache() {
 		codelen := MCode(code, this._d.patchdata)
 		offset := this._d.patchaddr - this._d.patchVAfix  ;; Virtual Address -> Raw Offset in EXE
@@ -119,7 +119,7 @@ class THKMC_PatchProcessor {
 		this._d.doCustomPatch( this._pEXEData )
 	}
 
-	; ¼ì²é EXE ÎÄ¼şµÄÄÚÈİÊÇ·ñÊôÓÚÄ³Ò»¶«·½ STG ÓÎÏ·
+	; æ£€æŸ¥ EXE æ–‡ä»¶çš„å†…å®¹æ˜¯å¦å±äºæŸä¸€ä¸œæ–¹ STG æ¸¸æˆ
 	isEXEThisGame() {
 		if (this._checkFilesize()) {
 			pehelper := new CPEHelper(this._pEXEData, this._exesize)
@@ -130,14 +130,14 @@ class THKMC_PatchProcessor {
 
 ;private
 	_checkFilesize() {
-		; ÕâÃ´Ğ´·½±ãÓÃ msgbox µ÷ÊÔ
+		; è¿™ä¹ˆå†™æ–¹ä¾¿ç”¨ msgbox è°ƒè¯•
 		s1 := this._exesize
 		s2 := this._d.minfilesize
 		return s1 >= s2
 	}
 
-	; ½« KeymapValue ×÷Îª¼ü²éÑ¯ key_names ÖĞµÄ¼üÃû
-	; ÓÉÓÚ¿ÉÄÜÓĞ¶à¸ö£¬ËùÒÔ·µ»ØÁĞ±í
+	; å°† KeymapValue ä½œä¸ºé”®æŸ¥è¯¢ key_names ä¸­çš„é”®å
+	; ç”±äºå¯èƒ½æœ‰å¤šä¸ªï¼Œæ‰€ä»¥è¿”å›åˆ—è¡¨
 	_findKeymapKeyFromValue(KeymapValue, key_names) {
 		result := []
 		for k, v in key_names {
@@ -148,35 +148,35 @@ class THKMC_PatchProcessor {
 		return result
 	}
 
-	; ´Ó this._d.inifilepath ÎÄ¼şÖĞ¶ÁÈ¡
-	; Èç¹û´Ó section ¶ÎÖĞ¶ÁÈ¡Ê§°Ü£¬Ôò³¢ÊÔ includesection £¬¶¼Ê§°ÜÔò AddLog ²¢·µ»Ø "ERROR"
-	; Èç¹û·µ»Ø¿Õ£¬ÔòÍ¬Ñùµ÷ÓÃ AddLog()
-	; log_message ÓÃÓÚ·µ»ØÖ´ĞĞÊ±µÄ log¡£Ó¦¸Ã´«¸ø AddLog() ¡£
-	; ÓÉÓÚ±¾·½·¨ÄÚ²¿¿ÉÄÜ»áµİ¹é£¬ÔÚ±¾·½·¨ÄÚ²¿µ÷ÓÃ AddLog() ¿ÉÄÜ»áÔì³É¶à¸öÖØ¸´µÄ log£¬ËùÒÔµ÷ÓÃ AddLog() µÄÈÎÎñ½»¸øÁËµ÷ÓÃÕß
+	; ä» this._d.inifilepath æ–‡ä»¶ä¸­è¯»å–
+	; å¦‚æœä» section æ®µä¸­è¯»å–å¤±è´¥ï¼Œåˆ™å°è¯• includesection ï¼Œéƒ½å¤±è´¥åˆ™ AddLog å¹¶è¿”å› "ERROR"
+	; å¦‚æœè¿”å›ç©ºï¼Œåˆ™åŒæ ·è°ƒç”¨ AddLog()
+	; log_message ç”¨äºè¿”å›æ‰§è¡Œæ—¶çš„ logã€‚åº”è¯¥ä¼ ç»™ AddLog() ã€‚
+	; ç”±äºæœ¬æ–¹æ³•å†…éƒ¨å¯èƒ½ä¼šé€’å½’ï¼Œåœ¨æœ¬æ–¹æ³•å†…éƒ¨è°ƒç”¨ AddLog() å¯èƒ½ä¼šé€ æˆå¤šä¸ªé‡å¤çš„ logï¼Œæ‰€ä»¥è°ƒç”¨ AddLog() çš„ä»»åŠ¡äº¤ç»™äº†è°ƒç”¨è€…
 	_readKeymapFromINI(keymap, section, includesection, ByRef log_message) {
 		inifilepath := this._d.inifilepath
 		IniRead, newkeymap, %inifilepath%, %section%, %keymap%
 		if ( newkeymap = "ERROR" ) {
-			; ¶ÁÈ¡ INCLUDE ¶ÎÖĞµÄÏàÓ¦ÉèÖÃ
+			; è¯»å– INCLUDE æ®µä¸­çš„ç›¸åº”è®¾ç½®
 			if ( includesection != "ERROR" ) {
 				IniRead, newkeymap, %inifilepath%, %includesection%, %keymap%
 			}
 			if ( newkeymap = "ERROR" ) {
-				log_message := "£ûÎ´Ö¸¶¨£ı" . keymap
-				return newkeymap ; ¸Ã¼üÎ»µÄÉèÖÃ²»´æÔÚ£¬Ìø¹ı
+				log_message := "ï½›æœªæŒ‡å®šï½" . keymap
+				return newkeymap ; è¯¥é”®ä½çš„è®¾ç½®ä¸å­˜åœ¨ï¼Œè·³è¿‡
 			}
 		}
 
-		; µÈºÅÓÒ±ßÎª¿Õ£¬¿ÉÒÔºöÂÔµô±» INCLUDE µÄÉèÖÃ¡£
+		; ç­‰å·å³è¾¹ä¸ºç©ºï¼Œå¯ä»¥å¿½ç•¥æ‰è¢« INCLUDE çš„è®¾ç½®ã€‚
 		if ( newkeymap = "" ) {
-			log_message := "£ûÒÑºöÂÔ£ı£º" . keymap
+			log_message := "ï½›å·²å¿½ç•¥ï½ï¼š" . keymap
 		}
 		else {
-			; ¿´¿´¶ÁÈ¡µÄÖµÖĞÓĞÎŞÃ°ºÅ£¬ÓĞµÄ»°Ôò½«×ó±ßÄÇ²¿·Öµ±×ö¶ÎÃû£¬ÓÒ±ß²¿·Öµ±×ö¼üÃû½øĞĞÒıÓÃ
-			; ±ÈÈç th7:UP ±íÊ¾ÒıÓÃ [th7] ¶ÎÖĞµÄ UP= ÓÒ±ßµÄÖµ
+			; çœ‹çœ‹è¯»å–çš„å€¼ä¸­æœ‰æ— å†’å·ï¼Œæœ‰çš„è¯åˆ™å°†å·¦è¾¹é‚£éƒ¨åˆ†å½“åšæ®µåï¼Œå³è¾¹éƒ¨åˆ†å½“åšé”®åè¿›è¡Œå¼•ç”¨
+			; æ¯”å¦‚ th7:UP è¡¨ç¤ºå¼•ç”¨ [th7] æ®µä¸­çš„ UP= å³è¾¹çš„å€¼
 			newkeymap_bycolon := StrSplit(newkeymap, ":")
 			if ( newkeymap_bycolon[1] != "" && newkeymap_bycolon[2] != "" ) {
-				; ÒıÓÃÁËÆäËûÖµ£¬ÖØĞÂ¶ÁÈ¡Ö¸¶¨¼üÖĞµÄÖµ
+				; å¼•ç”¨äº†å…¶ä»–å€¼ï¼Œé‡æ–°è¯»å–æŒ‡å®šé”®ä¸­çš„å€¼
 				newkeymap := this._readKeymapFromINI(newkeymap_bycolon[2], newkeymap_bycolon[1], "ERROR", log_message)
 			}
 		}

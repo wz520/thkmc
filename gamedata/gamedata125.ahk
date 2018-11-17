@@ -1,16 +1,16 @@
-; ±¾×÷ºÜ¿ÓµùµÄ°´ [ESP+XX] À´·ÃÎÊ¾Ö²¿±äÁ¿...
+ï»¿; æœ¬ä½œå¾ˆå‘çˆ¹çš„æŒ‰ [ESP+XX] æ¥è®¿é—®å±€éƒ¨å˜é‡...
 
 class THKMC_GameData125 extends THKMC_GameData11 {
 	__New( ) {
 		base.__New()
-		this._setEXEInfo("th125", "¶«·½ÎÄ»¨ÌûDS 1.00a", 0x4b916e39, 743424)
+		this._setEXEInfo("th125", "ä¸œæ–¹æ–‡èŠ±å¸–DS 1.00a", 0x4b916e39, 743424)
 		pd = 
 (LTrim Comment
 
 57               ; PUSH EDI
 BF 80000000      ; MOV EDI,80
 
-81C4 88000000 ; add esp, 88  ; ºóÃæµÄµØÖ·×Ü¹² -80-4=-84
+81C4 88000000 ; add esp, 88  ; åé¢çš„åœ°å€æ€»å…± -80-4=-84
 
 0FB67424 81       ; MOVZX ESI,BYTE PTR SS:[ESP-7F]
 0FB64424 AE       ; MOVZX EAX,BYTE PTR SS:[ESP-52]
@@ -116,7 +116,7 @@ F7D8              ; NEG EAX
 0FB64424 9D       ; MOVZX EAX,BYTE PTR SS:[ESP-63]
 
 
-81EC 88000000   ; sub esp, 88  ; »Ö¸´ESP
+81EC 88000000   ; sub esp, 88  ; æ¢å¤ESP
 5F              ; pop edi
 	)
 		this._setPatchData( 0x46245b, 0x4625ca, 0x400c00, 0x80, pd )

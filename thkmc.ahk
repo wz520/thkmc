@@ -282,7 +282,7 @@ loadFileList() {
 }
 
 saveFileList() {
-	fp := FileOpen("recentfiles.txt", "w`n")
+	fp := FileOpen("recentfiles.txt", "w`n", "UTF-16")
 	if ( IsObject(fp) ) {
 		loop, % LV_GetCount()
 		{
@@ -335,7 +335,7 @@ TestMode=0
 
 )
 
-	fileobj := FileOpen(inifilepath, "w`n")
+	fileobj := FileOpen(inifilepath, "w`n", "UTF-16")
 	if ( isObject(fileobj) ) {
 		if (fileobj.Write(filecontent)) {
 			fileobj.Close()

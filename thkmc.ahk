@@ -89,11 +89,29 @@ doProcess(patch_processor, filename, bTestMode) {
 
 
 ; throw exception on error
-; outvar: exedata and filesize 
+; outvar: exedata and filesize.
+;   if file not found, filesize will be set to -1, and exedata will be
+;     set to an empty string
 readEXEData(filename, ByRef exedata, ByRef filesize) {
-	fileobj := FileOpen(filename, "r")
+	filesize := -1
+	exedata =
+	; NOTE:
+	; When inside a try-block, FileOpen() will throw an exception on error.
+	; To throw our customized error when the file cannot be opened, we need
+	;   to add one more try-block here to prevent the exeuction flow from
+	;   jumping to the outer catch-block.
+	fileobj =
+	try {
+		fileobj := FileOpen(filename, "r")
+	}
+	catch {
+		; nothing
+	}
 	if ( !isObject(fileobj) ) {
-		throw Exception("以读取方式打开文件失败", filename)
+		; NOTE:
+		; If we don't put a try-block above, and this function is being
+		;   executed inside a try-block, this line would be NEVER executed.
+		throw Exception("以读取方式打开文件失败或者文件不存在", filename)
 	}
 
 	filesize := fileobj.Length
@@ -225,6 +243,8 @@ addFileToList(filename, atTop:=False) {
 
 	; 获取文件属于哪个游戏
 	gamenameCN := "未知"
+
+	e =   ; clear error object
 	try {
 		readEXEData(filename, exedata, filesize)
 		global THKMC_GameIDList
@@ -238,17 +258,33 @@ addFileToList(filename, atTop:=False) {
 		}
 	}
 	catch e {
-		; ignore errors
+		gamenameCN := Format("【{:s}】", e.Message)
 	}
 
 	; 图标
-	iconID := IL_Add(g_ImageListID, filename, 1)
+	if ( isObject(e) ) {  ; there was an error
+		iconID := 9999
+	}
+	else {
+		iconID := IL_Add(g_ImageListID, filename, 1)
+	}
 
 	; 其他文件属性
-	FileGetTime, filetime, %filename%
-	FormatTime, filetimestring, %filetime% R T0
-	FileGetAttrib, fileattrib, %filename%
+	try {
+		FileGetTime, filetime, %filename%
+		FormatTime, filetimestring, %filetime% R T0
+	}
+	catch e {
+		filetimestring = 无可奉告
+	}
+	try {
+		FileGetAttrib, fileattrib, %filename%
+	}
+	catch e {
+		fileattrib = 布吉岛
+	}
 	filesize := DecimalMark(filesize, 0)
+
 	result := atTop
 		? LV_InsertIfNotExist(filename, 1, 1, "Icon" . iconID, filename, gamenameCN, filesize, filetimestring, fileattrib, backupfileexists)
 		: LV_Add("Icon" . iconID, filename, gamenameCN, filesize, filetimestring, fileattrib, backupfileexists)
@@ -742,7 +778,7 @@ LAbout() {
 	Gui, +OwnDialogs
 	MsgBox, 64, %title%,
 (LTrim
-	THKMC - 东方STG专用键盘键位映射修改工具 1.00
+	THKMC - 东方STG专用键盘键位映射修改工具 1.01
 
 	Written by wz520 <wingzero1040@gmail.com>
 	百度贴吧ID：天使的枷锁

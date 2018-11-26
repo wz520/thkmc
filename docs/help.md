@@ -1,6 +1,6 @@
-﻿# THKMC - 东方STG专用键盘映射修改工具
+# THKMC - 东方STG专用键盘映射修改工具
 
-当前版本: `1.0`
+当前版本: `1.01`
 
 ## 功能
 
@@ -51,6 +51,8 @@ THKMC(TouHou Keyboard Mapping Changer) 通过修改东方STG游戏主程序文�
 * 东方辉针城 1.00b 日文原版、喵玉汉化版
 * 弹幕天邪鬼 1.00a 日文原版、喵玉汉化版
 * 东方绀珠传 1.00b 日文原版、喵玉汉化版
+* 东方天空璋 1.00a 日文原版、喵玉汉化版
+* 秘封噩梦日记 1.00a 日文原版
 * 黄昏酒场 1.00a
 
 
@@ -58,16 +60,18 @@ THKMC(TouHou Keyboard Mapping Changer) 通过修改东方STG游戏主程序文�
 
 _对于其他打了非官方补丁的版本，本程序可能也能识别，但不保证能达到正确的修改效果。_
 
-* 喵玉汉化版请选择原版的 exe（比如 th14.exe），而不是带 c 的 exe（比如 th14c.exe，那只是个启动器而已，而非游戏主程序）。
+* 喵玉汉化版请选择原版的 exe（比如 th14.exe），而不是带 c 的 exe（比如 th14c.exe。那只是个启动器而已，而非游戏主程序）。
 * **花映冢**由于比较复杂，所以暂时坑掉。
 * **地灵殿**目前其实是可以打补丁的，但是打了补丁也没用，原因在ZUN。请参见下面的 `常见问题`。
 
 ## 使用方法
 
-1. 启动 thkmc.exe 。
-	* 初次启动会自动生成 thkmc.ini 文件。
-2. 点击左上角的“编辑 thkmc.ini”，根据自己的喜好更改键位。
-	* 默认情况下所有游戏都会改成以下键位：
+1. 启动 thkmc.exe 。初次启动界面如图所示。
+	* ![主界面](https://i.loli.net/2018/11/25/5bfa78bb3914b.png)
+	* **注意**：启动时若 thkmc.ini 文件不存在，会提示该文件已被自动生成。
+2. 点击左上角的“编辑 thkmc.ini”，会使用默认程序（通常是`记事本`）打开 thkmc.ini。你可以根据自己的喜好更改键位。
+	* ![编辑按钮](https://i.loli.net/2018/11/25/5bfa8276be20b.png)
+	* 若你未修改过自动生成的 thkmc.ini 文件，则按照以下规则修改键位：
 		+ ↑=W
 		+ ↓=S
 		+ ←=A
@@ -76,13 +80,30 @@ _对于其他打了非官方补丁的版本，本程序可能也能识别，但�
 		+ X=K
 		+ C=L
 		+ 左SHIFT=I
-	* 若要改成其他键位请参考本程序源代码中的 [KeyNamesDX.ahk](https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk)
-	* 完整的 INI 编写说明可参考安装目录下的 [thkmc_sample.ini]
-3. 点击上面的“打开游戏程序并应用改键补丁”按钮。
-4. 选择一个本程序支持的东方STG的主程序。
-5. 自动根据 thkmc.ini 里设置的键位修改程序，并覆盖原EXE。
+	* 若要改成其他键位请参考本程序源代码中的 [KeyNamesDX.ahk] 。
+	* **举个栗子**：比如如果要将 `ESC` 键映射为 ` ` ` 键（即“反引号”键。通常位于主键盘数字 `1` 键的左边），则可以在 `LSHIFT=i` 下面插入一行 `ESC=GRAVE` 即可。
+		+ 除了字母键外，thkmc.ini 文件中其他的按键都必须写键位名称，这需要使用者自行参考 [KeyNamesDX.ahk]，然后将其填入 INI 文件中。其中 `THKMC_KeyNamesDX["XXX"]` 中的 `XXX` 部分便是可以使用的键位名称。
+		+ 比如该文件中有一行是：
+		
+				THKMC_KeyNamesDX["GRAVE"] := 0x29 ; accent grave `
+			
+		+ 右边的注释 ``accent grave ` `` 提示 ` ` ` 键的名称是 `GRAVE` 。所以将其填入 INI 文件中即可。
+		+ 完整的 INI 编写说明可参考 [INI设置项说明] 。
+3. 编辑好后**别忘了保存**哦。怎么保存文件相信大家都会所以这里就不赘述啦（
+4. 点击上面的“打开程序并应用补丁”按钮。
+	* ![打开程序并应用补丁](https://i.loli.net/2018/11/25/5bfa83b457d71.png)
+5. 选择一个本程序支持的东方STG的主程序。具体支持哪些游戏主程序请参考上面的 [支持的游戏版本] 。
+	* ![选择文件](https://i.loli.net/2018/11/25/5bfa8401a323b.png)
+6. THKMC 会自动根据 thkmc.ini 里设置的键位修改程序，并覆盖原EXE，然后报告结果。
+	* ![打补丁结果](https://i.loli.net/2018/11/25/5bfa84db41b1a.png)
+		- {未指定} 就是INI文件中没有设置重映射，但是本游戏程序支持该键被重映射。比如说这个窗口里写了 `{未指定} F10`，就说明弹幕天邪鬼支持 `F10` 键（切换全屏/窗口） 被重映射，如果你想要改成比如 `F12`，你可以在INI文件里写 `F10=F12` ，那么以后按 `F12` 就可以切换全屏了。
+		- 另外要注意，能被重映射的键位，不一定表示该键位一定有功能。比如 `D` 键，曾经在永夜抄里有作用，而后来的作品基本都用不到了。但是你可以看到弹幕天邪鬼还会监视 `D` 键，但是其实是没有功能的。所以我们可以写 `RIGHT=D` 来赋予 `D` 键新的功能。
 	* 如果 INI 中设置了备份选项，那么在覆盖前会自动备份。
-6. 成功应用补丁的EXE会添加到列表中，以后可以通过双击再次应用补丁，也可以通过右键菜单直接运行该程序。
+	* 如果主窗口的 `测试模式` 复选框处于选中状态，也会弹出该结果框，但并不会真正地修改游戏主程序，备份文件也不会被生成。
+7. 成功应用补丁的EXE会添加到列表中。
+	* ![主界面2](https://i.loli.net/2018/11/25/5bfa85d4f3e20.png)
+	* 以后如果要换一套键位，可以先修改 INI 文件（记得保存文件！），然后通过上面的“应用补丁”按钮或者右键菜单中的“应用改键补丁”命令再次应用补丁，这样就可以使用新键位了。
+	* 也可以通过双击直接运行该程序，甚至还可以在右键菜单中运行 vpatch、custom.exe 等。所以也可以把 THKMC 当一个简单的 `东方STG游戏启动器` 来使用。
 
 
 ### 使用时的注意事项
@@ -99,9 +120,9 @@ _对于其他打了非官方补丁的版本，本程序可能也能识别，但�
 
 * 支持文件拖拽。不过目前没有确认提示。
 
-## INI 设置项说明
+## INI设置项说明
 
-请参阅软件目录下的 [thkmc_sample.ini] 文件。
+请参阅软件目录下的 `thkmc_sample.ini` 文件。
 
 * 或者直接用浏览器看 [带高亮版的 thkmc_sample.ini](https://wz520.github.io/thkmc/thkmc_sample_ini.html) 。
 
@@ -154,3 +175,4 @@ _对于其他打了非官方补丁的版本，本程序可能也能识别，但�
 [GetKeyboardState()]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms646299(v=vs.85).aspx
 [IDirectInputDevice8::SetCooperativeLevel]: https://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.idirectinputdevice8.idirectinputdevice8.setcooperativelevel(v=vs.85).aspx
 [CreateWindowEx()]: https://msdn.microsoft.com/en-us/library/windows/desktop/ms632680(v=vs.85).aspx
+[KeyNamesDX.ahk]: https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk

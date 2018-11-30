@@ -12,7 +12,7 @@
 #include LVUtils.ahk
 
 title           = THKMC
-helpfilecmd     = help.html,https://wz520.github.io/thkmc/help.html
+helpfilecmd     = https://wz520.github.io/thkmc/help.html
 g_bakfilesuffix = .thkmcbackup ; 备份文件后缀
 g_inifilepath   = thkmc.ini
 
@@ -778,7 +778,7 @@ LAbout() {
 	Gui, +OwnDialogs
 	MsgBox, 64, %title%,
 (LTrim
-	THKMC - 东方STG专用键盘键位映射修改工具 1.01
+	THKMC - 东方STG专用键盘键位映射修改工具 1.10
 
 	Written by wz520 <wingzero1040@gmail.com>
 	百度贴吧ID：天使的枷锁

@@ -1,7 +1,4 @@
-﻿; 【注意】由于 2un 的 BUG，该补丁代码目前无效 →__→
-; 但是别删掉这个类，因为要被其他类（比如 THKMC_GameData12）继承。
-;
-; 本作很坑爹的按 [ESP+XX] 来访问局部变量...
+﻿; 本作很坑爹的按 [ESP+XX] 来访问局部变量...
 
 
 class THKMC_GameData11 extends THKMC_GameData10 {
@@ -115,5 +112,108 @@ F7DA              ;    NEG EDX
 	)
 		this._setPatchData( 0x457883, 0x4579d1, 0x400c00, 0x80, pd )
 		this.addrPattern := "i)(?:\b0fb6|\b8a4)[0-9a-f]+\s([0-9a-z]{2})\s"
+	}
+
+	doCustomPatch( pExeData ) {
+		; 要让上面的补丁有效，
+		; 需要打个补丁以修正总是无法正常初始化 DirectInput 的 BUG 。
+
+		; original data
+		od =
+		(LTrim Comment
+E8 F11A0100              ; call <th11.sub_4571A0>
+E8 BC2A0100              ; call <th11.sub_458170>
+8125 10384C00 FFF3FFFF   ; and dword ptr ds:[4C3810],FFFFF3FF
+B8 80324C00              ; mov eax,th11.4C3280
+E8 E8230000              ; call <th11.sub_447AB0>
+A1 10384C00              ; mov eax,dword ptr ds:[4C3810]
+33D2                     ; xor edx,edx
+391D A0324C00            ; cmp dword ptr ds:[4C32A0],ebx
+BE E4584A00              ; mov esi,th11.4A58E4
+0F95C2                   ; setne dl
+33C9                     ; xor ecx,ecx
+C1E2 0A                  ; shl edx,A
+33D0                     ; xor edx,eax
+81E2 00040000            ; and edx,400
+33C2                     ; xor eax,edx
+391D A4324C00            ; cmp dword ptr ds:[4C32A4],ebx
+0F95C1                   ; setne cl
+C1E1 0B                  ; shl ecx,B
+33C8                     ; xor ecx,eax
+81E1 00080000            ; and ecx,800
+33C1                     ; xor eax,ecx
+A3 10384C00              ; mov dword ptr ds:[4C3810],eax
+E8 243D0100              ; call <th11.sub_459430>
+6A 20                    ; push 20
+E8 A3A20100              ; call <JMP.&Direct3DCreate9>
+A3 84324C00              ; mov dword ptr ds:[4C3284],eax
+3BC3                     ; cmp eax,ebx
+75 17                    ; jne th11.445733
+68 5C684900              ; push th11.49685C
+BF 40594A00              ; mov edi,th11.4A5940
+E8 C5330100              ; call <th11.sub_458AF0>
+83C4 04                  ; add esp,4
+E9 66040000              ; jmp th11.445B99
+8B5C24 10                ; mov ebx,dword ptr ss:[esp+10]
+E8 A4130000              ; call <th11.sub_446AE0>
+85C0                     ; test eax,eax
+0F85 53040000            ; jne th11.445B97
+		)
+
+		; patch data
+		pd = 
+		(LTrim Comment
+8B5C24 10                ; mov ebx,dword ptr ss:[esp+10]
+E8 2D140000              ; call <th11.sub_446AE0>
+85C0                     ; test eax,eax
+0F85 DC040000            ; jne th11.445B97
+E8 E01A0100              ; call <th11.sub_4571A0>
+E8 AB2A0100              ; call <th11.sub_458170>
+8125 10384C00 FFF3FFFF   ; and dword ptr ds:[4C3810],FFFFF3FF
+B8 80324C00              ; mov eax,th11.4C3280
+E8 D7230000              ; call <th11.sub_447AB0>
+A1 10384C00              ; mov eax,dword ptr ds:[4C3810]
+33D2                     ; xor edx,edx
+3915 A0324C00            ; cmp dword ptr ds:[4C32A0],edx
+BE E4584A00              ; mov esi,th11.4A58E4
+0F95C2                   ; setne dl
+33C9                     ; xor ecx,ecx
+C1E2 0A                  ; shl edx,A
+33D0                     ; xor edx,eax
+81E2 00040000            ; and edx,400
+33C2                     ; xor eax,edx
+390D A4324C00            ; cmp dword ptr ds:[4C32A4],ecx
+0F95C1                   ; setne cl
+C1E1 0B                  ; shl ecx,B
+33C8                     ; xor ecx,eax
+81E1 00080000            ; and ecx,800
+33C1                     ; xor eax,ecx
+A3 10384C00              ; mov dword ptr ds:[4C3810],eax
+E8 133D0100              ; call <th11.sub_459430>
+6A 20                    ; push 20
+E8 92A20100              ; call <JMP.&Direct3DCreate9>
+A3 84324C00              ; mov dword ptr ds:[4C3284],eax
+3BC7                     ; cmp eax,edi
+75 17                    ; jne th11.445744
+68 5C684900              ; push th11.49685C
+BF 40594A00              ; mov edi,th11.4A5940
+E8 B4330100              ; call <th11.sub_458AF0>
+83C4 04                  ; add esp,4
+E9 55040000              ; jmp th11.445B99
+		)
+
+		addr := 0x44AAA
+		
+		AddLog("【提示】开始打补丁以修正地灵殿特有的无法正确初始化 DirectInput8 的 BUG 。")
+		if ( compareHexToBinary( od, pExeData, addr ) = 0 ) {
+			AddLog("【提示】用于修正BUG的补丁应用成功！")
+			writeHexToBinary( pd, pExeData, addr )
+		}
+		else if ( compareHexToBinary( pd, pExeData, addr) = 0 ) {
+			AddLog("【提示】无需打补丁。跳过。")
+		}
+		else {
+			AddLog("【警告】无法打补丁。因为需要打补丁的数据已被第三方程序修改过。自定义键位可能无效。")
+		}
 	}
 }

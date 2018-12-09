@@ -9,5 +9,9 @@ class THKMC_GameData12 extends THKMC_GameData11 {
 		pd := this.patchdata
 		this._setPatchData( 0x463093, 0x4631e1, 0x400c00, 0x80, pd )
 	}
+
+	; 屏蔽 TH11 的 custom patch
+	doCustomPatch( pExeData ) {
+	}
 }
 

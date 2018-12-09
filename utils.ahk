@@ -127,6 +127,10 @@ DoShowLog() {
 
 	global vLogText, vOK, vHelp
 	Gui, WndLog: New, +Owner1 -SysMenu +Resize, 结果 - THKMC
+	if RegExMatch(logtext, "`nm)^【警告】") {
+		Gui, Color, Yellow, Aqua
+	}
+
 	if ( HasError ) {
 		Gui, Color, Red, Yellow
 	}

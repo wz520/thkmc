@@ -1,6 +1,6 @@
 ﻿; 本作很坑爹的按 [ESP+XX] 来访问局部变量...
 
-class THKMC_GameData125 extends THKMC_GameData11 {
+class THKMC_GameData125 extends THKMC_GameData12 {
 	__New( ) {
 		base.__New()
 		this._setEXEInfo("th125", "东方文花帖DS 1.00a", 0x4b916e39, 743424)

@@ -806,7 +806,7 @@ LAbout() {
 	Gui, +OwnDialogs
 	MsgBox, 64, %title%,
 (LTrim
-	THKMC - 东方STG专用键盘键位映射修改工具 1.11
+	THKMC - 东方STG专用键盘键位映射修改工具 1.20
 
 	Written by wz520 <wingzero1040@gmail.com>
 	百度贴吧ID：天使的枷锁

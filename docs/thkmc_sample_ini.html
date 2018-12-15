@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>THKMC_SAMPLE</title> 
-<meta name="Generator" content="Vim/8.0">
-<meta name="plugin-version" content="vim7.4_v2">
+<meta name="Generator" content="Vim/8.1">
+<meta name="plugin-version" content="vim8.1_v1">
 <meta name="syntax" content="dosini">
 <meta name="settings" content="use_css,pre_wrap,no_foldcolumn,expand_tabs,prevent_copy=">
 <meta name="colorscheme" content="wz_night">
@@ -15,16 +15,11 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 * { font-size: 1em; }
 .Type { color: #00ff00; font-weight: bold; }
 .Number { color: #a1df2d; background-color: #222222; padding-bottom: 1px; }
+.String { color: #bebebe; background-color: #1a1a1a; padding-bottom: 1px; }
 .Comment { color: #80a0ff; }
 .Special { color: #ffa500; background-color: #333333; padding-bottom: 1px; }
 -->
 </style>
-
-<script type='text/javascript'>
-<!--
-
--->
-</script>
 </head>
 <body>
 <pre id='vimCodeElement'>
@@ -36,24 +31,24 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 <span class="Comment">; 如果你能耐心看完下面的所有注释（分号开头的每一行），相信用起 THKMC 来会更加得心应手。</span>
 <span class="Comment">; 推荐使用带语法高亮的文本编辑器来阅读本文件。</span>
 <span class="Comment">; </span>
-<span class="Comment">; 本文件适用的 THKMC 版本：1.10</span>
+<span class="Comment">; 本文件适用的 THKMC 版本：1.20</span>
 
 
 <span class="Comment">; [Default] - 全局键位配置</span>
 <span class="Comment">;</span>
 <span class="Comment">; UP、DOWN、LEFT、RIGHT 的意思分别是 ↑、↓、←、→ 四个方向键</span>
 <span class="Special">[Default]</span>
-<span class="Type">UP=</span>W
-<span class="Type">DOWN=</span>S
-<span class="Type">LEFT=</span>A
-<span class="Type">RIGHT=</span>D
+<span class="Type">UP</span>=<span class="String">W</span>
+<span class="Type">DOWN</span>=<span class="String">S</span>
+<span class="Type">LEFT</span>=<span class="String">A</span>
+<span class="Type">RIGHT</span>=<span class="String">D</span>
 
 <span class="Comment">; 上面这4行设置的意思是将 ↑↓←→ 键分别映射到 WSAD 。</span>
 
-<span class="Type">Z=</span>j
-<span class="Type">X=</span>k
-<span class="Type">C=</span>l
-<span class="Type">LSHIFT=</span>i
+<span class="Type">Z</span>=<span class="String">j</span>
+<span class="Type">X</span>=<span class="String">k</span>
+<span class="Type">C</span>=<span class="String">l</span>
+<span class="Type">LSHIFT</span>=<span class="String">i</span>
 <span class="Comment">; 上面这4行又将 Z 改成 J，X 改成 K，C 改成 L，LSHIFT（左SHIFT）改成 I。</span>
 <span class="Comment">; 你可以看到上面的 jkli 都是小写，这无所谓，大写小写意思都是一样的。</span>
 <span class="Comment">;</span>
@@ -140,12 +135,12 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 <span class="Comment">; 比如对于文花帖的 S 键，可以重新映射到没有被用到的键上，比如 ScrollLock 键：</span>
 
 <span class="Special">[th125]</span>
-<span class="Type">S=</span>ScrollLock
+<span class="Type">S</span>=<span class="String">ScrollLock</span>
 
 <span class="Comment">; 对于永夜抄的 D 键，也可以映射到没有被用到的键上，比如同样是 ScrollLock 键。</span>
 
 <span class="Special">[th8]</span>
-<span class="Type">D=</span>ScrollLock
+<span class="Type">D</span>=<span class="String">ScrollLock</span>
 
 <span class="Comment">; 现在在文花帖DS中按 ScrollLock 键，就是原来 S 键的功能；</span>
 <span class="Comment">; 而在永夜抄中按 ScrollLock 键，就是原来 D 键的功能。</span>
@@ -158,7 +153,7 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 <span class="Special">[th10]</span>
 <span class="Comment">; 这里我们看一个新语法，我叫它“键位引用”：</span>
 
-<span class="Type">ESC=</span>th8:D
+<span class="Type">ESC</span>=<span class="String">th8:D</span>
 
 <span class="Comment">; 这句话表示取出上面 [th8] 中为字母键 &quot;D&quot; 设置的值，再应用到本段（[th10]） 的 &quot;ESC&quot; 这个键位上。</span>
 <span class="Comment">; 而上面 [th8] 里写着 D=ScrollLock ，所以这句话就等同于 ESC=ScrollLock 。</span>
@@ -178,12 +173,12 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 <span class="Comment">;   1 = 只在备份文件不存在时备份(默认)</span>
 <span class="Comment">;   2 = 总是备份(覆盖已有的备份文件)</span>
 <span class="Comment">;   3 = 不备份</span>
-<span class="Type">DoBackup=</span><span class="Number">1</span>
+<span class="Type">DoBackup</span>=<span class="Number">1</span>
 
 <span class="Comment">; TestMode：测试模式。开启后会模拟打补丁的过程：会显示修改结果，但不会创建/修改EXE文件和备份文件。</span>
 <span class="Comment">;   1 = 开启</span>
 <span class="Comment">;   0 = 关闭</span>
-<span class="Type">TestMode=</span><span class="Number">0</span>
+<span class="Type">TestMode</span>=<span class="Number">0</span>
 
 
 <span class="Comment">; 最后总结一下，除了 [thkmc] 外，每个段中的设置项的写法有以下三种：</span>

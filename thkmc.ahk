@@ -710,7 +710,8 @@ Gui, Add, Button, gLOpenAndApply x+10 hwndhBtnApply, 应用补丁(&A)
 Gui, Add, Button, gLRunEXE x+10 hwndhBtnRun +Default, 运行(&R)
 Gui, Add, Button, grefreshFileList x+10 y5 hwndhBtnRefresh, 刷新(&E)
 Gui, Add, Button, gRunHelpAndExit hwndhBtnHelp x+10 y5, 帮助(&H)
-Gui, Add, Custom, ClassSysLink hwndhSysLink gLSysLinkEvent x+10 r1, <a>访问喵玉殿论坛查看更新</a>
+Gui, Add, Custom, ClassSysLink hwndhSysLink gLSysLinkEvent x+10 w150 r1, <a>访问喵玉殿论坛查看更新</a>
+Gui, Add, Custom, ClassSysLink hwndhSysLinkAbout gLSysLinkEvent x+0 w50 r1, <a>关于...</a>
 g_updatelink = http://bbs.nyasama.com/forum.php?mod=viewthread&tid=78904
 
 Gui, Add, Text, xm+0, 备份到 *%g_bakfilesuffix% ？
@@ -779,11 +780,14 @@ GuiEscape:
 
 lSysLinkEvent:
 	if ( A_GuiEvent = "N" ) {
-		hwndFrom := NumGet(A_EventInfo, 0, "UPtr") ; NMHDR->hwndFrom
-		if ( hwndFrom = hSysLink ) {
-			code := NumGet(A_EventInfo, A_PtrSize+4, "Int") ; NMHDR->hwndFrom
-			if ( code = -2 || code = -4 ) { ; NM_CLICK = -2, NM_RETURN = -4
+		code := NumGet(A_EventInfo, A_PtrSize+4, "Int") ; NMHDR->hwndFrom
+		if ( code = -2 || code = -4 ) { ; NM_CLICK = -2, NM_RETURN = -4
+			hwndFrom := NumGet(A_EventInfo, 0, "UPtr") ; NMHDR->hwndFrom
+			if ( hwndFrom = hSysLink ) {
 				Run, %g_updatelink%
+			}
+			else if (hwndFrom = hSysLinkAbout) {
+				LAbout()
 			}
 		}
 	}

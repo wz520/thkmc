@@ -673,7 +673,7 @@ LRemoveAll() {
 GuiSize(GuiHwnd, EventInfo, Width, Height) {
 	if ( EventInfo != 1 ) {
 		neww := Width - 20
-		newh := Height - 90
+		newh := Height - 120
 		GuiControl, Move, vFileLV, w%neww% h%newh%
 	}
 }
@@ -710,13 +710,17 @@ Gui, Add, Button, gLOpenAndApply x+10 hwndhBtnApply, 应用补丁(&A)
 Gui, Add, Button, gLRunEXE x+10 hwndhBtnRun +Default, 运行(&R)
 Gui, Add, Button, grefreshFileList x+10 y5 hwndhBtnRefresh, 刷新(&E)
 Gui, Add, Button, gRunHelpAndExit hwndhBtnHelp x+10 y5, 帮助(&H)
-Gui, Add, Custom, ClassSysLink hwndhSysLink gLSysLinkEvent x+10 w150 r1, <a>访问喵玉殿论坛查看更新</a>
-Gui, Add, Custom, ClassSysLink hwndhSysLinkAbout gLSysLinkEvent x+0 w50 r1, <a>关于...</a>
-g_updatelink = http://bbs.nyasama.com/forum.php?mod=viewthread&tid=78904
+Gui, Add, Custom, ClassSysLink hwndhSysLinkAbout gLSysLinkEvent x+5 w50 r1 y10, <a>关于...</a>
 
 Gui, Add, Text, xm+0, 备份到 *%g_bakfilesuffix% ？
 Gui, Add, DropDownList, AltSubmit vddlBackup x+10 yp-3 w210 Choose%cfgddl%, 只在备份文件不存在时备份(推荐)|总是备份(若备份已存在则覆盖)|不备份(不推荐)
 Gui, Add, Checkbox, x+10 yp-3 h30 vchkTestMode Checked%cfgtestmode%, 测试模式(&T)
+
+Gui, Add, Text, x10, 查看更新：
+Gui, Add, Custom, ClassSysLink hwndhSysLink gLSysLinkEvent x+5 w40 r1, <a>喵玉殿</a>
+Gui, Add, Custom, ClassSysLink hwndhSysLinkGitHub gLSysLinkEvent x+5 w40 r1, <a>GitHub</a>
+g_updatelink = http://bbs.nyasama.com/forum.php?mod=viewthread&tid=78904
+g_githublink = https://github.com/wz520/thkmc
 
 Gui, Add, Text, xm CBlue, ※最近打开的文件（双击可运行程序，右击有菜单）:
 Gui, Add, ListView, vvFileLV xm w740 h400 gLFileLV AltSubmit LV0x4000, 文件|游戏版本|大小|最后修改时间|属性|存在备份  ; LVS_EX_LABELTIP:=0x4000
@@ -733,6 +737,7 @@ AttachTipToControl(hBtnRun, "运行选中的游戏程序")
 AttachTipToControl(hBtnRefresh, "刷新“最近打开的文件”列表")
 AttachTipToControl(hBtnHelp, helpfilecmd)
 AttachTipToControl(hSysLink, g_updatelink)
+AttachTipToControl(hSysLinkGitHub, g_githublink)
 
 Gui, Show, Center, %title%
 GuiControl, Focus, vFileLV
@@ -761,7 +766,7 @@ Menu, mnuLV, Add
 Menu, mnuLV, Add, 自动调整表格宽度, LAutoSizeColumn
 Menu, mnuLV, Add, 刷新`tF5, refreshFileList
 Menu, mnuLV, Add
-Menu, mnuLV, Add, 关于, LAbout
+Menu, mnuLV, Add, 关于..., LAbout
 
 OnExit, LOnExit
 
@@ -785,6 +790,9 @@ lSysLinkEvent:
 			hwndFrom := NumGet(A_EventInfo, 0, "UPtr") ; NMHDR->hwndFrom
 			if ( hwndFrom = hSysLink ) {
 				Run, %g_updatelink%
+			}
+			else if (hwndFrom = hSysLinkGitHub) {
+				Run, %g_githublink%
 			}
 			else if (hwndFrom = hSysLinkAbout) {
 				LAbout()

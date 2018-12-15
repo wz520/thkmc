@@ -709,7 +709,9 @@ Gui, Add, Button, gLOpenEXE x+10, 打开程序并应用补丁(&O)
 Gui, Add, Button, gLOpenAndApply x+10 hwndhBtnApply, 应用补丁(&A)
 Gui, Add, Button, gLRunEXE x+10 hwndhBtnRun +Default, 运行(&R)
 Gui, Add, Button, grefreshFileList x+10 y5 hwndhBtnRefresh, 刷新(&E)
-Gui, Add, Button, gRunHelpAndExit x+10 y5, 帮助(&H)
+Gui, Add, Button, gRunHelpAndExit hwndhBtnHelp x+10 y5, 帮助(&H)
+Gui, Add, Custom, ClassSysLink hwndhSysLink gLSysLinkEvent x+10 r1, <a>访问喵玉殿论坛查看更新</a>
+g_updatelink = http://bbs.nyasama.com/forum.php?mod=viewthread&tid=78904
 
 Gui, Add, Text, xm+0, 备份到 *%g_bakfilesuffix% ？
 Gui, Add, DropDownList, AltSubmit vddlBackup x+10 yp-3 w210 Choose%cfgddl%, 只在备份文件不存在时备份(推荐)|总是备份(若备份已存在则覆盖)|不备份(不推荐)
@@ -728,6 +730,8 @@ AttachTipToControl(hCtrl, "模拟打补丁的过程：会显示修改结果，�
 AttachTipToControl(hBtnApply, "将 .INI 中的映射配置重新应用到选中的程序上")
 AttachTipToControl(hBtnRun, "运行选中的游戏程序")
 AttachTipToControl(hBtnRefresh, "刷新“最近打开的文件”列表")
+AttachTipToControl(hBtnHelp, helpfilecmd)
+AttachTipToControl(hSysLink, g_updatelink)
 
 Gui, Show, Center, %title%
 GuiControl, Focus, vFileLV
@@ -773,12 +777,24 @@ GuiClose:
 GuiEscape:
 	ExitApp
 
+lSysLinkEvent:
+	if ( A_GuiEvent = "N" ) {
+		hwndFrom := NumGet(A_EventInfo, 0, "UPtr") ; NMHDR->hwndFrom
+		if ( hwndFrom = hSysLink ) {
+			code := NumGet(A_EventInfo, A_PtrSize+4, "Int") ; NMHDR->hwndFrom
+			if ( code = -2 || code = -4 ) { ; NM_CLICK = -2, NM_RETURN = -4
+				Run, %g_updatelink%
+			}
+		}
+	}
+	return
+
 LAbout() {
 	global title
 	Gui, +OwnDialogs
 	MsgBox, 64, %title%,
 (LTrim
-	THKMC - 东方STG专用键盘键位映射修改工具 1.10
+	THKMC - 东方STG专用键盘键位映射修改工具 1.11
 
 	Written by wz520 <wingzero1040@gmail.com>
 	百度贴吧ID：天使的枷锁

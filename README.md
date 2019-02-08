@@ -58,9 +58,14 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 
 * [Releases]
 
-### 我编写的其他小程序
+## 我编写的其他小程序
 
 * <https://www.zybuluo.com/wz520/note/15842>
+
+## 如果您愿意捐助一点小钱
+
+![支付宝](https://i.loli.net/2019/02/08/5c5d3764d5dd8.png "支付宝")
+
 
 [AutoHotkey 1.1.25.01+]: https://autohotkey.com/
 [Releases]: https://github.com/wz520/thkmc/releases

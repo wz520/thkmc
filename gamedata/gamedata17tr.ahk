@@ -1,6 +1,6 @@
-class THKMC_GameData17tr extends THKMC_GameDataBase {
+ï»¿class THKMC_GameData17tr extends THKMC_GameDataBase {
 	__New( ) {
-		base.__New("th17tr", "¶«·½¹íÐÎÊÞ ÌåÑé°æ 0.01a", 0x5CCCE6FC, 729600)
+		base.__New("th17tr", "ä¸œæ–¹é¬¼å½¢å…½ ä½“éªŒç‰ˆ 0.01a", 0x5CCCE6FC, 729600)
 		pd = 
 (LTrim Comment
 0FB6B5 40FFFFFF   ; MOVZX ESI,BYTE PTR SS:[EBP-C0]

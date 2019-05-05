@@ -804,12 +804,18 @@ lSysLinkEvent:
 LAbout() {
 	global title
 	Gui, +OwnDialogs
+
+	gamelist := THKMC_GetGameNameList()
+
 	MsgBox, 64, %title%,
 (LTrim
-	THKMC - 东方STG专用键盘键位映射修改工具 1.20
+	THKMC - 东方STG专用键盘键位映射修改工具 1.21
 
 	Written by wz520 <wingzero1040@gmail.com>
 	百度贴吧ID：天使的枷锁
+
+	支持的游戏：
+	%gamelist%
 )
 }
 

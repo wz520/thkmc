@@ -92,3 +92,15 @@ class THKMC_GameDataBase {
 
 ; 类名 "THKMC_GameDataXXX" 的 XXX 部分
 THKMC_GameIDList := [ "6", "6cn", "7", "8", "95", "10", "11", "12", "125", "128", "13", "14", "143", "15", "16", "165", "17tr", "alcostg" ]
+
+; 获取所有支持的游戏列表字符串（目前用于“关于”对话框）
+THKMC_GetGameNameList()
+{
+	global THKMC_GameIDList
+	result := []
+	for k, id in THKMC_GameIDList {
+		gamedata := new THKMC_GameData%id%()
+		result.Push( Format("[{:s}]`t{:s}", gamedata.gamename, gamedata.gamenameCN) )
+	}
+	return array_join(result)
+}

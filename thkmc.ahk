@@ -425,7 +425,7 @@ LFileLV() {
 	else if ( A_GuiEvent = "K" ) {
 		key := GetKeyName(Format("vk{:x}", A_EventInfo))
 		ShortcutkeyToFuncMap := {}
-		if ( GetKeyState("Ctrl") ) {
+		if ( GetKeyState("Ctrl") && !GetKeyState("Alt") ) {
 			ShortcutkeyToFuncMap["G"] := Func("LOpenAndApply")
 			ShortcutkeyToFuncMap["D"] := Func("LOpenFolder")
 			ShortcutkeyToFuncMap["B"] := Func("LRestoreFromBackup")
@@ -433,6 +433,9 @@ LFileLV() {
 			ShortcutkeyToFuncMap["C"] := Func("LRunCustom")
 			ShortcutkeyToFuncMap["Z"] := Func("LRunNyasama")
 			ShortcutkeyToFuncMap["A"] := Func("LSelectAll")
+		}
+		else if ( GetKeyState("Alt") && !GetKeyState("Ctrl") ) {
+			ShortcutkeyToFuncMap["Enter"] := Func("LOpenFileProperties")
 		}
 		else {
 			ShortcutkeyToFuncMap["NumpadDel"] := Func("LRemove")
@@ -619,6 +622,18 @@ LOpenFolder() {
 	}
 }
 
+LOpenFileProperties() {
+	assertLVHasSelection()
+	for c, row in LVRow {
+		LV_GetText(filename, row)
+
+		Run, properties %filename%, , UseErrorLevel
+		if ( ErrorLevel = "ERROR" ) {
+			global title
+			TrayTip, %title% - 打开文件属性失败, 文件：%filename%, ,3
+		}
+	}
+}
 
 
 ;; Load/Save Config
@@ -751,6 +766,8 @@ Menu, mnuLV, Add, 运行所在目录下的 vpatch.exe`tCtrl+V, LRunVPatch
 Menu, mnuLV, Add, 运行所在目录下的 custom.exe`tCtrl+C, LRunCustom
 Menu, mnuLV, Add, 运行所在目录下的汉化版游戏程序(th???c.exe)`tCtrl+Z, LRunNyasama
 Menu, mnuLV, Add, 打开所在目录`tCtrl+D, LOpenFolder
+Menu, mnuLV, Add
+Menu, mnuLV, Add, 属性...`tAlt+Enter, LOpenFileProperties
 Menu, mnuLV, Add
 Menu, mnuLV, Add, 从备份文件恢复`tCtrl+B, LRestoreFromBackup
 Menu, mnuLV, Add, 删除备份文件, LDeleteBackup

@@ -702,12 +702,9 @@ GuiDropFiles(GuiHwnd, FileArray, CtrlHwnd, X, Y) {
 
 GuiContextMenu(GuiHwnd, CtrlHwnd, EventInfo, IsRightClick, X, Y) {
 	if (A_GuiControl = "vFileLV") {
-		Menu, mnuLV, Show
+		Menu, mnuLV, Show, %A_GuiX%, %A_GuiY%
 	}
 }
-
-
-
 
 
 

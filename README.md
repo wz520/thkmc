@@ -52,7 +52,7 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 
 1. 点击 [此处](https://autohotkey.com/) 进入 AutoHotkey 的官网。
 2. 点击中间绿色的 `Download`。
-3. 点击左上方蓝色的 `Download AutoHotkey Installer`。开始下载最新版本的 AutoHotkey 安装包。
+3. 点击的 `Download Current Version`。开始下载最新版本的 AutoHotkey 安装包。
 4. 运行安装包。其中在选择默认的解释器版本这一步请选择 `ANSI 32-bit` 或者 `Unicode 32-bit`。目前本程序暂时还不能在 64-bit 的解释器上运行。
 5. 安装 AutoHotkey 完成后，双击本仓库里的 `thkmc.ahk` 即可启动本程序。
 

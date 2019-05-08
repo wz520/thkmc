@@ -119,7 +119,7 @@ DoShowLog() {
 */
 
 DoShowLog() {
-	global logtext, HasError, ShowLog
+	global logtext, HasError, ShowLog, chkTestMode
 
 	if (!HasError && !ShowLog) {
 		return
@@ -127,12 +127,17 @@ DoShowLog() {
 
 	global vLogText, vOK, vHelp
 	Gui, WndLog: New, +Owner1 -SysMenu +Resize, 结果 - THKMC
+
+	if ( chkTestMode ) {
+		Gui, Color, Green
+	}
+
 	if RegExMatch(logtext, "`nm)^【警告】") {
-		Gui, Color, Yellow, Aqua
+		Gui, Color, Yellow
 	}
 
 	if ( HasError ) {
-		Gui, Color, Red, Yellow
+		Gui, Color, Red
 	}
 	Gui, Add, Edit, w500 r30 vvLogText, %logtext%
 	Gui, Add, Button, gCloseLogWindow Default w150 vvOK, 确定

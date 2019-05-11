@@ -1,4 +1,12 @@
-﻿#NoEnv
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Touhou Keyboard Mapping Changer
+;;; Written by wz520
+;;; Tested AutoHotkey Version: 1.1.30.01
+;;; Download on Github: https://github.com/wz520/thkmc
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+#NoEnv
 #SingleInstance, force
 #Persistent
 
@@ -10,6 +18,8 @@
 #include LVRow.ahk
 #include wzclipboard.ahk
 #include LVUtils.ahk
+
+#include <WZSplashWindow>
 
 title           = THKMC
 helpfilecmd     = https://wz520.github.io/thkmc/help.html
@@ -151,7 +161,8 @@ askInputFilename() {
 
 ; 如果 filename 为空，则使用对话框询问
 ; 有任何错误，则扔异常
-doWork(filename) {
+; NOTE: It's not recommended to call this function directly.  Use tryDoWork() instead.
+_doWork(filename) {
 	if ( filename="" ) {
 		filename := askInputFilename()
 	}
@@ -198,7 +209,7 @@ addErrorObjectToLog(e, bShow:=False) {
 tryDoWork(filename="") {
 	global HasError
 	try {
-		doWork(filename)
+		_doWork(filename)
 	}
 	catch e {
 		addErrorObjectToLog(e)
@@ -293,11 +304,10 @@ addFileToList(filename, atTop:=False) {
 
 loadFileList() {
 	; 当文件列表很长时可能需要一点时间。所以显示一个提示框
-	Gui, Praying: New, +Owner1 -SysMenu, 正在载入文件列表
-	Gui, Add, Text, w200 r1 Center, 少女祈祷中...
-	Gui, Show, Center AutoSize
-	Gui, 1:Default
-	Gui, 1:+Disabled
+	
+	splash := new WZSplashWindow("Praying" , "正在载入文件列表", "少女祈祷中...")
+
+	splash.Show()
 	try {
 		loop, Read, recentfiles.txt
 		{
@@ -312,8 +322,7 @@ loadFileList() {
 	}
 	finally {
 		LAutoSizeColumn()
-		Gui, 1:-Disabled
-		Gui, Praying: Destroy
+		splash.Destroy()
 	}
 }
 
@@ -609,6 +618,7 @@ LCopyOrCutFile(itemname) {
 		verb := bCopy ? "复制" : "剪切"
 		CopyFilesToClipboard(files, bCopy)
 		TrayTip, %title%, %verb%%c%个文件到剪贴板成功！
+		traytip,
 	}
 }
 
@@ -836,3 +846,4 @@ LAbout() {
 LAutoSizeColumn() {
 	LVAutoSizeHeader("vFileLV")
 }
+

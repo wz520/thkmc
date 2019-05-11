@@ -10,15 +10,14 @@
 #SingleInstance, force
 #Persistent
 
-
-#include KeyNamesDX.ahk
-#include utils.ahk
 #include gamedata.ahk
-#include PatchProcessor.ahk
-#include LVRow.ahk
-#include wzclipboard.ahk
-#include LVUtils.ahk
+#include KeyNamesDX.ahk
 
+#include <utils>
+#include <PatchProcessor>
+#include <LVRow>
+#include <wzclipboard>
+#include <LVUtils>
 #include <WZSplashWindow>
 
 title           = THKMC

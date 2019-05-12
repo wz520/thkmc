@@ -126,7 +126,7 @@ DoShowLog() {
 	}
 
 	global vLogText, vOK, vHelp
-	Gui, WndLog: New, +Owner1 -SysMenu +Resize, 结果 - THKMC
+	Gui, WndLog:New, +Owner1 -SysMenu +Resize +LastFound, 结果 - THKMC
 
 	if ( chkTestMode ) {
 		Gui, Color, Green
@@ -143,9 +143,10 @@ DoShowLog() {
 	Gui, Add, Button, gCloseLogWindow Default w150 vvOK, 确定
 	Gui, Add, Button, gWM_HELP x+20 w150 vvHelp, 帮助(&H)
 	Gui, Show, Center AutoSize
-	GuiControl, Focus, vOK
-	Gui, 1:Default
 	Gui, 1:+Disabled
+	GuiControl, Focus, vOK
+	WinWaitClose
+	Gui, 1:Default
 }
 
 WndLogGuiSize(GuiHwnd, EventInfo, Width, Height) {

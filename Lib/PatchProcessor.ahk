@@ -68,8 +68,12 @@ class THKMC_PatchProcessor {
 				}
 				if ( newkeymapValue = "" ) {
 					; 该键位名不存在于 key_names 。是个错误的键位名
-					errmsg = 无法为【%keymap%】设置新映射：无法识别的键位名【%newkeymap%】
-					throw Exception(errmsg, inifilepath)
+					errmsg = 【警告】无法为【%keymap%】设置新映射：无法识别的键位名【%newkeymap%】
+
+					; DEPRECATED: throw Exception(errmsg, inifilepath)
+					; 现在将错误 INI 中的错误键位名视为警告
+					AddLog(errmsg)
+					continue
 				}
 
 				newkeymapValue := this._d.keymapValue2Str( newkeymapValue )

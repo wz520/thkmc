@@ -149,26 +149,37 @@ readEXEData(filename, ByRef exedata, ByRef filesize) {
 
 askInputFilename() {
 	Gui, +OwnDialogs
-	FileSelectFile, filepath, 3, %A_ScriptDir%, 请选择一个东方 STG 的主程序文件, 应用程序文件 (*.exe)
-	if ( filepath = "" ) {
+	FileSelectFile, files, M3, %A_ScriptDir%, 请选择一个东方 STG 的主程序文件, 应用程序文件 (*.exe)
+	if ( errorlevel != 0 || files = "" ) {
 		; throw Exception("由于你没有选择文件，于是我不知道该修改啥……", "*")
 		Exit
 	}
 
-	return filepath
+	dir=
+	filepaths := []
+	Loop, parse, files, `n
+	{
+		if (A_Index = 1)
+			dir := A_LoopField
+		else
+			filepaths.Push(dir . "\" . A_LoopField)
+	}
+
+	return filepaths
 }
 
-; 如果 filename 为空，则使用对话框询问
+; filename 不得为空，否则扔异常
 ; 有任何错误，则扔异常
 ; NOTE: It's not recommended to call this function directly.  Use tryDoWork() instead.
 _doWork(filename) {
 	if ( filename="" ) {
-		filename := askInputFilename()
+		throw Exception("内部错误ERR233：没有文件名")
 	}
 	readEXEData( filename, exedata, filesize )
 
 	succeeded := False
 	global THKMC_GameIDList, chkTestMode
+	Gui, 1:Default
 	Gui, Submit, NoHide
 	for k, id in THKMC_GameIDList {
 		gamedata        := new THKMC_GameData%id%()
@@ -186,9 +197,8 @@ _doWork(filename) {
 		wocao.Push("无法识别的文件。")
 		wocao.Push("啊哈哈，琪露诺看不懂。")
 		wocao.Push("对不起，我的智商刚刚下线，这是啥我看不懂……")
-		throw Exception(array_choose(wocao), "")
+		throw Exception(array_choose(wocao), filename)
 	}
-	refreshFileList()
 }
 
 ; e is an Exception object
@@ -205,15 +215,35 @@ addErrorObjectToLog(e, bShow:=False) {
 	}
 }
 
-tryDoWork(filename="") {
+; filenames 可以接受多个文件（使用数组）
+tryDoWork(filenames="") {
 	global HasError
-	try {
-		_doWork(filename)
+
+	filepaths := !IsObject(filenames)
+			? [filenames]
+			: filenames.Count() = 0
+				? [""]
+				: filenames
+
+	if ( filepaths[1] = "" ) {
+		filepaths := askInputFilename()
 	}
-	catch e {
-		addErrorObjectToLog(e)
+
+	for k, f in filepaths {
+		if ( k > 1 ) {
+			AddLog("`r`n`r`n####################### 分割线 #######################`r`n`r`n")
+		}
+
+		try {
+			_doWork(f)
+		}
+		catch e {
+			addErrorObjectToLog(e)
+		}
 	}
 	DoShowLog()
+	refreshFileList()
+
 	; DEBUG
 	if ( 0 ) {
 		ExitApp, HasError ? 1 : 0
@@ -223,7 +253,6 @@ tryDoWork(filename="") {
 		return ClearLog()
 	}
 }
-
 
 
 
@@ -402,6 +431,39 @@ ensureINIExists() {
 	}
 }
 
+
+confirmApply(filepaths) {
+	global vCA_OK
+	IsOK := False
+
+	txtFiles := array_join(filepaths, "`r`n")
+
+	Gui, WndConfirm:New, +LabelCA_ +Owner1 -SysMenu -Resize +LastFound, 确认 - THKMC
+
+	Gui, Color, Fuchsia
+
+	Gui, Add, Edit, w500 r25, 你选择的文件是：`r`n%txtFiles%`r`n`r`n真的要将 INI 文件中的键位映射设置应用到这些程序上吗？
+	Gui, Add, Button, gCA_OK Default w150 vvCA_OK, 是(&Y)
+	Gui, Add, Button, gCA_Close x+20 w150 , 否(&H)
+	GuiControl, Focus, vCA_OK
+	Gui, Show, Center AutoSize
+	Gui, 1:+Disabled
+
+	WinWaitClose
+
+	return IsOK
+
+CA_OK:
+	IsOK := True
+	; no return
+CA_Close:
+CA_Cancel:
+	Gui, 1:-Disabled
+	Gui, WndConfirm:Destroy
+	return
+}
+
+
 LOpenINI() {
 	global g_inifilepath
 	ensureINIExists()
@@ -410,17 +472,15 @@ LOpenINI() {
 
 LOpenAndApply() {
 	assertLVHasSelection()
+
+	filepaths := []
 	for c, row in LVRow {
 		LV_GetText(filename, row)
+		filepaths.Push(filename)
+	}
 
-		global title
-		MsgBox, 0x34, %title%, 你选择的文件是：`r`n%filename%`r`n`r`n真的要重新更改此程序的键位映射吗？
-		IfMsgBox, Yes
-		{
-			tryDoWork(filename)
-		}
-		
-		break ; 只处理第一个高亮
+	if (confirmApply(filepaths)) {
+		tryDoWork(filepaths)
 	}
 }
 
@@ -456,7 +516,7 @@ LFileLV() {
 }
 
 LOpenEXE() {
-	tryDoWork(filename)
+	tryDoWork()
 }
 
 LRunEXE() {
@@ -704,8 +764,11 @@ GuiSize(GuiHwnd, EventInfo, Width, Height) {
 
 ; 拖拽处理
 GuiDropFiles(GuiHwnd, FileArray, CtrlHwnd, X, Y) {
-	For i, f in FileArray {
-		tryDoWork(f)
+	; For i, f in FileArray {
+	; 	tryDoWork(f)
+	; }
+	if (confirmApply(FileArray)) {
+		tryDoWork(FileArray)
 	}
 }
 

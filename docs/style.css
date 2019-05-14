@@ -55,11 +55,11 @@ em:after {
 }
 
 
-div#TOC:before {
+nav#TOC:before {
 	content: "目录：";
 	font-size: 1.5em;
 }
-div#TOC{
+nav#TOC{
 	border: 3px solid white;
 	border-radius: 5px;
 	line-height: 30%;
@@ -67,21 +67,21 @@ div#TOC{
 	width: 25em;
 	background-color: darkgreen;
 }
-div#TOC ul{
+nav#TOC ul{
 	/* list-style-type: square; */
 	/* display: inline; */
 }
-div#TOC ul li{
+nav#TOC ul li{
 	/* display: inline; */
 }
-div#TOC ul li a{
+nav#TOC ul li a{
 	color: yellow;
 	transition: background-color 0.5s, color 0.5s;
 }
-div#TOC ul li a:active {
+nav#TOC ul li a:active {
 	color: red;
 }
-div#TOC ul li a:hover {
+nav#TOC ul li a:hover {
 	/* color: fuchsia; */
 	/* background-color: darkblue; */
 	color: orange;

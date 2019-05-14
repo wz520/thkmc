@@ -1,6 +1,6 @@
 # Make documentation using mingw32-make
 #
-# Need additional programs: pandoc, gvim
+# Need additional programs: pandoc 2.7.2, gvim
 
 
 SHELL=cmd.exe
@@ -12,7 +12,7 @@ RM=del
 all: $(TARGETS)
 
 help.html: help.md
-	pandoc -f markdown+multiline_tables+table_captions -sS --toc --toc-depth=4 --email-obfuscation=references -V lang=zh --css=style.css -o $@ $<
+	pandoc -f markdown+multiline_tables+table_captions -s --toc --toc-depth=4 --email-obfuscation=references -V lang=zh --css=style.css --metadata pagetitle="THKMC Help" -o $@ $<
 
 thkmc_sample_ini.html: ../thkmc_sample.ini | tohtmlhelper.vim
 	gvim -S tohtmlhelper.vim $<

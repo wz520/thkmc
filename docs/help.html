@@ -1,15 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <title></title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="style.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>THKMC Help</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
-<div id="TOC">
+<nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#thkmc---东方stg专用键盘映射修改工具">THKMC - 东方STG专用键盘映射修改工具</a><ul>
 <li><a href="#功能">功能</a></li>
@@ -25,7 +33,7 @@
 <li><a href="#更新地址更新历史">更新地址＆更新历史</a></li>
 </ul></li>
 </ul>
-</div>
+</nav>
 <h1 id="thkmc---东方stg专用键盘映射修改工具">THKMC - 东方STG专用键盘映射修改工具</h1>
 <p>当前版本: <code>1.20</code></p>
 <h2 id="功能">功能</h2>
@@ -85,15 +93,15 @@
 <li><s><strong>地灵殿</strong>目前其实是可以打补丁的，但是打了补丁也没用，原因在ZUN。请参见下面的 <code>常见问题</code>。</s> 从 1.20 版起已经全面支持。</li>
 </ul>
 <h2 id="使用方法">使用方法</h2>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>启动 thkmc.exe 。初次启动界面如图所示。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa78bb3914b.png" alt="主界面" /></li>
+<li><img src="https://i.loli.net/2018/11/25/5bfa78bb3914b.png" title="fig:" alt="主界面" /></li>
 <li><strong>注意</strong>：启动时若 thkmc.ini 文件不存在，会提示该文件已被自动生成。</li>
 </ul></li>
 <li>点击左上角的“编辑 thkmc.ini”，会使用默认程序（通常是<code>记事本</code>）打开 thkmc.ini。你可以根据自己的喜好更改键位。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa8276be20b.png" alt="编辑按钮" /></li>
+<li><img src="https://i.loli.net/2018/11/25/5bfa8276be20b.png" title="fig:" alt="编辑按钮" /></li>
 <li>若你未修改过自动生成的 thkmc.ini 文件，则按照以下规则修改键位：
 <ul>
 <li>↑=W</li>
@@ -106,27 +114,26 @@
 <li>左SHIFT=I</li>
 </ul></li>
 <li>若要改成其他键位请参考本程序源代码中的 <a href="https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk">KeyNamesDX.ahk</a> 。</li>
-<li><strong>举个栗子</strong>：比如如果要将 <code>ESC</code> 键映射为 <code>`</code> 键（即“反引号”键。通常位于主键盘数字 <code>1</code> 键的左边），则可以在 <code>LSHIFT=i</code> 下面插入一行 <code>ESC=GRAVE</code> 即可。
+<li><strong>举个栗子</strong>：比如如果要将 <code>ESC</code> 键映射为 <code></code> <code>键（即“反引号”键。通常位于主键盘数字</code>1<code>键的左边），则可以在</code>LSHIFT=i<code>下面插入一行</code>ESC=GRAVE<code>即可。   + 除了字母键外，thkmc.ini 文件中其他的按键都必须写键位名称，这需要使用者自行参考 [KeyNamesDX.ahk]，然后将其填入 INI 文件中。其中</code>THKMC_KeyNamesDX[“XXX”]<code>中的</code>XXX` 部分便是可以使用的键位名称。
 <ul>
-<li>除了字母键外，thkmc.ini 文件中其他的按键都必须写键位名称，这需要使用者自行参考 <a href="https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk">KeyNamesDX.ahk</a>，然后将其填入 INI 文件中。其中 <code>THKMC_KeyNamesDX[&quot;XXX&quot;]</code> 中的 <code>XXX</code> 部分便是可以使用的键位名称。</li>
 <li><p>比如该文件中有一行是：</p>
-<pre><code>THKMC_KeyNamesDX[&quot;GRAVE&quot;] := 0x29 ; accent grave `</code></pre></li>
-<li>右边的注释 <code>accent grave `</code> 提示 <code>`</code> 键的名称是 <code>GRAVE</code> 。所以将其填入 INI 文件中即可。</li>
-<li>完整的 INI 编写说明可参考 <a href="#ini设置项说明">INI设置项说明</a> 。</li>
+<pre><code>  THKMC_KeyNamesDX[&quot;GRAVE&quot;] := 0x29 ; accent grave `</code></pre></li>
+<li><p>右边的注释 <code>accent grave `</code> 提示 <code></code> <code>键的名称是</code>GRAVE` 。所以将其填入 INI 文件中即可。</p></li>
+<li><p>完整的 INI 编写说明可参考 <a href="#ini设置项说明">INI设置项说明</a> 。</p></li>
 </ul></li>
 </ul></li>
 <li>编辑好后<strong>别忘了保存</strong>哦。怎么保存文件相信大家都会所以这里就不赘述啦（</li>
 <li>点击上面的“打开程序并应用补丁”按钮。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa83b457d71.png" alt="打开程序并应用补丁" /></li>
+<li><img src="https://i.loli.net/2018/11/25/5bfa83b457d71.png" title="fig:" alt="打开程序并应用补丁" /></li>
 </ul></li>
 <li>选择一个本程序支持的东方STG的主程序。具体支持哪些游戏主程序请参考上面的 <a href="#支持的游戏版本">支持的游戏版本</a> 。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa8401a323b.png" alt="选择文件" /></li>
+<li><img src="https://i.loli.net/2018/11/25/5bfa8401a323b.png" title="fig:" alt="选择文件" /></li>
 </ul></li>
 <li>THKMC 会自动根据 thkmc.ini 里设置的键位修改程序，并覆盖原EXE，然后报告结果。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa84db41b1a.png" alt="打补丁结果" />
+<li><img src="https://i.loli.net/2018/11/25/5bfa84db41b1a.png" title="fig:" alt="打补丁结果" />
 <ul>
 <li>{未指定} 就是INI文件中没有设置重映射，但是本游戏程序支持该键被重映射。比如说这个窗口里写了 <code>{未指定} F10</code>，就说明弹幕天邪鬼支持 <code>F10</code> 键（切换全屏/窗口） 被重映射，如果你想要改成比如 <code>F12</code>，你可以在INI文件里写 <code>F10=F12</code> ，那么以后按 <code>F12</code> 就可以切换全屏了。</li>
 <li>另外要注意，能被重映射的键位，不一定表示该键位一定有功能。比如 <code>D</code> 键，曾经在永夜抄里有作用，而后来的作品基本都用不到了。但是你可以看到弹幕天邪鬼还会监视 <code>D</code> 键，但是其实是没有功能的。所以我们可以写 <code>RIGHT=D</code> 来赋予 <code>D</code> 键新的功能。</li>
@@ -136,7 +143,7 @@
 </ul></li>
 <li>成功应用补丁的EXE会添加到列表中。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa85d4f3e20.png" alt="主界面2" /></li>
+<li><img src="https://i.loli.net/2018/11/25/5bfa85d4f3e20.png" title="fig:" alt="主界面2" /></li>
 <li>以后如果要换一套键位，可以先修改 INI 文件（记得保存文件！），然后通过上面的“应用补丁”按钮或者右键菜单中的“应用改键补丁”命令再次应用补丁，这样就可以使用新键位了。</li>
 <li>也可以通过双击直接运行该程序，甚至还可以在右键菜单中运行 vpatch、custom.exe 等。所以也可以把 THKMC 当一个简单的 <code>东方STG游戏启动器</code> 来使用。</li>
 </ul></li>
@@ -176,7 +183,7 @@
 </blockquote></li>
 </ul>
 <h2 id="联系作者">联系作者</h2>
-<p><span class="citation">@wz520</span> 度娘贴吧ID: <a href="http://tieba.baidu.com/home/main?id=f861cceccab9b5c4bccfcbf83d00&amp;fr=userbar">天使的枷锁</a> <span class="mail"><a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x77;&#x69;&#110;&#x67;&#122;&#x65;&#114;&#x6f;&#x31;&#48;&#52;&#48;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;" class="email">&#37038;&#x7bb1;</a></span></p>
+<p><span class="citation" data-cites="wz520">@wz520</span> 度娘贴吧ID: <a href="http://tieba.baidu.com/home/main?id=f861cceccab9b5c4bccfcbf83d00&amp;fr=userbar">天使的枷锁</a> <span class="mail"><a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x77;&#x69;&#110;&#x67;&#122;&#x65;&#114;&#x6f;&#x31;&#48;&#52;&#48;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;" class="email">&#37038;&#x7bb1;</a></span></p>
 <h2 id="更新地址更新历史">更新地址＆更新历史</h2>
 <p>本程序的新版本可以在以下地址获取到：</p>
 <ul>

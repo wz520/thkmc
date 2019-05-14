@@ -114,11 +114,12 @@
 <li>左SHIFT=I</li>
 </ul></li>
 <li>若要改成其他键位请参考本程序源代码中的 <a href="https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk">KeyNamesDX.ahk</a> 。</li>
-<li><strong>举个栗子</strong>：比如如果要将 <code>ESC</code> 键映射为 <code></code> <code>键（即“反引号”键。通常位于主键盘数字</code>1<code>键的左边），则可以在</code>LSHIFT=i<code>下面插入一行</code>ESC=GRAVE<code>即可。   + 除了字母键外，thkmc.ini 文件中其他的按键都必须写键位名称，这需要使用者自行参考 [KeyNamesDX.ahk]，然后将其填入 INI 文件中。其中</code>THKMC_KeyNamesDX[“XXX”]<code>中的</code>XXX` 部分便是可以使用的键位名称。
+<li><strong>举个栗子</strong>：比如如果要将 <code>ESC</code> 键映射为 <code>`</code> 键（即“反引号”键。通常位于主键盘数字 <code>1</code> 键的左边），则可以在 <code>LSHIFT=i</code> 下面插入一行 <code>ESC=GRAVE</code> 即可。
 <ul>
+<li><p>除了字母键外，thkmc.ini 文件中其他的按键都必须写键位名称，这需要使用者自行参考 <a href="https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk">KeyNamesDX.ahk</a>，然后将其填入 INI 文件中。其中 <code>THKMC_KeyNamesDX["XXX"]</code> 中的 <code>XXX</code> 部分便是可以使用的键位名称。</p></li>
 <li><p>比如该文件中有一行是：</p>
 <pre><code>  THKMC_KeyNamesDX[&quot;GRAVE&quot;] := 0x29 ; accent grave `</code></pre></li>
-<li><p>右边的注释 <code>accent grave `</code> 提示 <code></code> <code>键的名称是</code>GRAVE` 。所以将其填入 INI 文件中即可。</p></li>
+<li><p>右边的注释 <code>accent grave `</code> 提示 <code>`</code> 键的名称是 <code>GRAVE</code> 。所以将其填入 INI 文件中即可。</p></li>
 <li><p>完整的 INI 编写说明可参考 <a href="#ini设置项说明">INI设置项说明</a> 。</p></li>
 </ul></li>
 </ul></li>

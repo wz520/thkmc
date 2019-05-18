@@ -1,6 +1,4 @@
-﻿#include PEHelper.ahk
-
-; 用于生成已打补丁的EXE的类
+﻿; 用于生成已打补丁的EXE的类
 class THKMC_PatchProcessor {
 	__New( pEXEData, exesize, kmcdata ) {
 		this._pEXEData := pEXEData ; 指向 EXE 二进制数据（不是HEX数据）的指针

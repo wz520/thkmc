@@ -18,6 +18,7 @@
 #include <LVRow>
 #include <wzclipboard>
 #include <LVUtils>
+#include <PEHelper>
 #include <WZSplashWindow>
 
 title           = THKMC

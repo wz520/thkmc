@@ -888,15 +888,25 @@ lSysLinkEvent:
 	}
 	return
 
+GetAHKVersionString() {
+	strIsUnicode := A_IsUnicode ? "Unicode" : "ANSI"
+	strIs64bit := A_PtrSize = 8 ? "64位" : "32位"
+	result=%A_AhkVersion% %strIsUnicode% %strIs64bit%
+	return result
+}
+
 LAbout() {
 	global title
 	Gui, +OwnDialogs
 
 	gamelist := THKMC_GetGameNameList()
+	ahkver := GetAHKVersionString()
 
 	MsgBox, 64, %title%,
 (LTrim
 	THKMC - 东方STG专用键盘键位映射修改工具 1.21
+
+	AutoHotkey 版本：%ahkver%
 
 	Written by wz520 <wingzero1040@gmail.com>
 	百度贴吧ID：天使的枷锁

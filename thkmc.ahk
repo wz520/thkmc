@@ -678,7 +678,6 @@ LCopyOrCutFile(itemname) {
 		verb := bCopy ? "复制" : "剪切"
 		CopyFilesToClipboard(files, bCopy)
 		TrayTip, %title%, %verb%%c%个文件到剪贴板成功！
-		traytip,
 	}
 }
 

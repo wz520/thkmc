@@ -30,17 +30,17 @@
 <li><a href="#ini设置项说明">INI设置项说明</a></li>
 <li><a href="#常见问题">常见问题</a></li>
 <li><a href="#联系作者">联系作者</a></li>
-<li><a href="#更新地址更新历史">更新地址＆更新历史</a></li>
+<li><a href="#下载地址更新历史">下载地址＆更新历史</a></li>
 </ul></li>
 </ul>
 </nav>
 <h1 id="thkmc---东方stg专用键盘映射修改工具">THKMC - 东方STG专用键盘映射修改工具</h1>
-<p>当前版本: <code>1.20</code></p>
+<p>当前版本: <code>1.30</code></p>
 <h2 id="功能">功能</h2>
 <p>众所周知，ZUN 制作的 东方STG 从来就不自带更改键盘键位的功能。为此，各路大神都写过各种键盘映射工具，但大多是外挂式的。随着新版本的 Windows 对系统安全性的要求越来越高，这些外挂式的改键工具都可能存在兼容性问题。</p>
 <p>THKMC(TouHou Keyboard Mapping Changer) 通过修改东方STG游戏主程序文件中与键盘映射相关的代码，实现自定义游戏键位。</p>
-<p>东方STG获取键盘按键状态的方法有两种：<code>使用 DirectInput</code> 和 <code>不使用 DirectInput</code> 。 其中 <code>使用 DirectInput</code> 是通过调用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.idirectinputdevice8.idirectinputdevice8.getdevicestate(v=vs.85).aspx">IDirectInputDevice8::GetDeviceState()</a> 来获取键盘状态的；而不使用 <code>DirectInput</code> 则是使用 Win32 API 中的 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646299(v=vs.85).aspx">GetKeyboardState()</a>。</p>
-<p>本程序 <strong>只支持</strong> 对使用 DirectInput 方式获取的按键映射进行更改。所以要求在游戏自带的 custom.exe 程序中不能勾选 “不使用 DirectInput 获取键盘输入”。若勾选的话使用本程序改键将没有任何效果。（不过一般不会有人去勾选吧，因为游戏默认的不勾选也能工作得很好）。</p>
+<p>东方STG获取键盘按键状态的方法有两种：<code>使用 DirectInput</code> 和 <code>不使用 DirectInput</code> 。 其中 <code>使用 DirectInput</code> 是通过调用 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.idirectinputdevice8.idirectinputdevice8.getdevicestate(v=vs.85).aspx">IDirectInputDevice8::GetDeviceState()</a> 来获取键盘状态的；而 <code>不使用 DirectInput</code> 则是使用 Win32 API 中的 <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms646299(v=vs.85).aspx">GetKeyboardState()</a>。</p>
+<p>本程序 <strong>只支持</strong> 对使用 DirectInput 方式获取的按键映射进行更改。所以要求在游戏自带的 custom.exe 程序中不能勾选 “不使用 DirectInput 获取键盘输入”。若勾选的话使用本程序改键将没有任何效果。（不过一般不会有人去勾选吧，因为游戏默认的不勾选也能工作得很好。）</p>
 <h2 id="特点">特点</h2>
 <p>相比较其他常见的外挂式通用键位修改工具，因为 THKMC 是为特定的EXE文件量身定制的，所以只要游戏版本正确且用户写的配置文件内容无问题，改键后通常不会有出错或者失效的现象发生。</p>
 <p>本程序可修改的键位不仅包括在STG中用到的各种控制键（↑、↓、←、→、Z、X、C、SHIFT、CTRL、ESC等），还包括：</p>
@@ -83,6 +83,7 @@
 <li>东方绀珠传 1.00b 日文原版、喵玉汉化版</li>
 <li>东方天空璋 1.00a 日文原版、喵玉汉化版</li>
 <li>秘封噩梦日记 1.00a 日文原版</li>
+<li>东方鬼形兽 0.01a 体验版</li>
 <li>黄昏酒场 1.00a</li>
 </ul>
 <p><strong>注意</strong>：若有哪一作未提到支持汉化版，只是未测试而已，多数情况下只要游戏版本号相同应该也能支持</p>
@@ -96,12 +97,12 @@
 <ol type="1">
 <li>启动 thkmc.exe 。初次启动界面如图所示。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa78bb3914b.png" title="fig:" alt="主界面" /></li>
+<li><img src="https://i.loli.net/2019/05/18/5cdffe2ac806134694.png" title="主界面" /></li>
 <li><strong>注意</strong>：启动时若 thkmc.ini 文件不存在，会提示该文件已被自动生成。</li>
 </ul></li>
 <li>点击左上角的“编辑 thkmc.ini”，会使用默认程序（通常是<code>记事本</code>）打开 thkmc.ini。你可以根据自己的喜好更改键位。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa8276be20b.png" title="fig:" alt="编辑按钮" /></li>
+<li><img src="https://i.loli.net/2019/05/18/5cdffe2abae5c22341.png" title="编辑按钮" /></li>
 <li>若你未修改过自动生成的 thkmc.ini 文件，则按照以下规则修改键位：
 <ul>
 <li>↑=W</li>
@@ -119,48 +120,64 @@
 <li><p>除了字母键外，thkmc.ini 文件中其他的按键都必须写键位名称，这需要使用者自行参考 <a href="https://github.com/wz520/thkmc/blob/master/KeyNamesDX.ahk">KeyNamesDX.ahk</a>，然后将其填入 INI 文件中。其中 <code>THKMC_KeyNamesDX["XXX"]</code> 中的 <code>XXX</code> 部分便是可以使用的键位名称。</p></li>
 <li><p>比如该文件中有一行是：</p>
 <pre><code>  THKMC_KeyNamesDX[&quot;GRAVE&quot;] := 0x29 ; accent grave `</code></pre></li>
-<li><p>右边的注释 <code>accent grave `</code> 提示 <code>`</code> 键的名称是 <code>GRAVE</code> 。所以将其填入 INI 文件中即可。</p></li>
+<li><p>如图： <img src="https://i.loli.net/2019/05/18/5ce001ba90eb971608.png" title="反引号键" /></p></li>
+<li><p>右边的注释 <code>accent grave `</code> 提示 <code>GRAVE</code> 是 <code>`</code> 键的名称。所以将 <code>GRAVE</code> 填入 INI 文件中即可。</p></li>
 <li><p>完整的 INI 编写说明可参考 <a href="#ini设置项说明">INI设置项说明</a> 。</p></li>
 </ul></li>
 </ul></li>
 <li>编辑好后<strong>别忘了保存</strong>哦。怎么保存文件相信大家都会所以这里就不赘述啦（</li>
-<li>点击上面的“打开程序并应用补丁”按钮。
+<li>点击上面的“打开程序并应用补丁”按钮。（下图以 <code>东方鬼形兽 0.01a 体验版</code> 为例）
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa83b457d71.png" title="fig:" alt="打开程序并应用补丁" /></li>
+<li><img src="https://i.loli.net/2019/05/18/5ce0003b8930a44219.png" title="打开程序并应用补丁" /></li>
 </ul></li>
 <li>选择一个本程序支持的东方STG的主程序。具体支持哪些游戏主程序请参考上面的 <a href="#支持的游戏版本">支持的游戏版本</a> 。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa8401a323b.png" title="fig:" alt="选择文件" /></li>
+<li><img src="https://i.loli.net/2019/05/18/5cdffe2acb8ca53457.png" title="选择文件" /></li>
 </ul></li>
 <li>THKMC 会自动根据 thkmc.ini 里设置的键位修改程序，并覆盖原EXE，然后报告结果。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa84db41b1a.png" title="fig:" alt="打补丁结果" />
+<li><img src="https://i.loli.net/2019/05/18/5cdffe2ac4b9f46747.png" title="打补丁结果" />
 <ul>
-<li>{未指定} 就是INI文件中没有设置重映射，但是本游戏程序支持该键被重映射。比如说这个窗口里写了 <code>{未指定} F10</code>，就说明弹幕天邪鬼支持 <code>F10</code> 键（切换全屏/窗口） 被重映射，如果你想要改成比如 <code>F12</code>，你可以在INI文件里写 <code>F10=F12</code> ，那么以后按 <code>F12</code> 就可以切换全屏了。</li>
-<li>另外要注意，能被重映射的键位，不一定表示该键位一定有功能。比如 <code>D</code> 键，曾经在永夜抄里有作用，而后来的作品基本都用不到了。但是你可以看到弹幕天邪鬼还会监视 <code>D</code> 键，但是其实是没有功能的。所以我们可以写 <code>RIGHT=D</code> 来赋予 <code>D</code> 键新的功能。</li>
+<li>{未指定} 就是INI文件中没有设置重映射，但是本游戏程序支持该键被重映射。比如说这个结果窗口里写了 <code>{未指定} F10</code>，就说明东方鬼形兽支持 <code>F10</code> 键（切换全屏/窗口） 被重映射，如果你想要改成比如 <code>F12</code>，你可以在INI文件里写 <code>F10=F12</code> ，那么以后按 <code>F12</code> 就可以切换全屏了。</li>
+<li>另外要注意，能被重映射的键位，不一定表示该键位一定有功能。比如 <code>D</code> 键，曾经在永夜抄里有作用，而后来的作品基本都用不到了。但是你可以看到东方鬼形兽还会监视 <code>D</code> 键，但是其实是没有功能的。所以我们可以写 <code>RIGHT=D</code> 来赋予 <code>D</code> 键新的功能。</li>
 </ul></li>
 <li>如果 INI 中设置了备份选项，那么在覆盖前会自动备份。</li>
 <li>如果主窗口的 <code>测试模式</code> 复选框处于选中状态，也会弹出该结果框，但并不会真正地修改游戏主程序，备份文件也不会被生成。</li>
 </ul></li>
 <li>成功应用补丁的EXE会添加到列表中。
 <ul>
-<li><img src="https://i.loli.net/2018/11/25/5bfa85d4f3e20.png" title="fig:" alt="主界面2" /></li>
+<li><img src="https://i.loli.net/2019/05/18/5cdfff402e49144657.png" title="主界面2" /></li>
 <li>以后如果要换一套键位，可以先修改 INI 文件（记得保存文件！），然后通过上面的“应用补丁”按钮或者右键菜单中的“应用改键补丁”命令再次应用补丁，这样就可以使用新键位了。</li>
 <li>也可以通过双击直接运行该程序，甚至还可以在右键菜单中运行 vpatch、custom.exe 等。所以也可以把 THKMC 当一个简单的 <code>东方STG游戏启动器</code> 来使用。</li>
 </ul></li>
 </ol>
 <h3 id="使用时的注意事项">使用时的注意事项</h3>
-<p>本程序仅仅通过 EXE 的文件大小和 PE 文件头中的UNIX时间戳(dwTimestamp) 来判断是哪个游戏，所以应该可以兼容各种打过第三方补丁（包括汉化补丁）的版本。</p>
+<ul>
+<li><p>本程序仅仅通过 EXE 的文件大小和 PE 文件头中的UNIX时间戳(dwTimestamp) 来判断是哪个游戏，所以应该可以兼容各种打过第三方补丁（包括汉化补丁）的版本。</p>
 <ul>
 <li>【<strong>注意</strong>】一个例外是红魔乡渔场汉化版，这个版本的 EXE 因为是加过壳的，所以无法直接修改，必须要脱过壳的版本才可以。
 <ul>
 <li>而且网上流传的红魔乡渔场汉化版与最新的日文版版本号不同，并非 1.02h （这也是为什么只有红魔乡的汉化版不能使用VP的原因）。为此有人针对 1.02h 做过一个汉化版，可以使用 VP。获取方式请自行搜索。</li>
 </ul></li>
+</ul></li>
+<li><p>根据打补丁成功与否，“结果”窗口的底色（非文本框颜色）会有所不同。</p>
+<ul>
+<li><span style="color:red">姨妈红</span>：有错误。</li>
+<li><span style="color:yellow">菊花黄</span>：有警告（常见的情况是 INI 文件中有至少一个键位名称没有写对，导致 THKMC 无法识别）。</li>
+<li><span style="color:lightgreen">原谅绿</span>：测试模式已开启。改键补丁并未实际打到游戏程序上。请在主窗口中取消 <code>测试模式</code> 勾选，然后重试。</li>
+<li>正常颜色：打补丁成功。</li>
+<li>优先级为 姨妈红＞菊花黄＞原谅绿。
+<ul>
+<li>假如既有错误，又有警告，又开启了测试模式，那么底色会是姨妈红，因为优先级最高。</li>
+</ul></li>
+</ul></li>
+<li><p><del>由于作者患有懒癌晚期，</del>本程序在修改前不会校验被修改的数据，所以如果有哪个第三方补丁修改的地方恰好与本程序相同，或者在补丁数据位置之前插入了其他数据导致位置发生了偏差，那么应用改键补丁后的结果将<strong>没有人知道</strong>！</p></li>
 </ul>
-<p><del>由于作者患有懒癌晚期，</del>本程序在修改前不会校验被修改的数据，所以如果有哪个第三方补丁修改的地方恰好与本程序相同，或者在补丁数据位置之前插入了其他数据导致位置发生了偏差，那么应用改键补丁后的结果将<strong>没有人知道</strong>！</p>
 <h3 id="使用技巧">使用技巧</h3>
 <ul>
-<li>支持文件拖拽。不过目前没有确认提示。</li>
+<li>可以一次打开多个文件。</li>
+<li>可以一次对多个文件应用补丁。其结果会统一显示在一个结果窗口中。</li>
+<li>支持文件拖拽。</li>
 </ul>
 <h2 id="ini设置项说明">INI设置项说明</h2>
 <p>请参阅软件目录下的 <code>thkmc_sample.ini</code> 文件。</p>
@@ -185,11 +202,16 @@
 </ul>
 <h2 id="联系作者">联系作者</h2>
 <p><span class="citation" data-cites="wz520">@wz520</span> 度娘贴吧ID: <a href="http://tieba.baidu.com/home/main?id=f861cceccab9b5c4bccfcbf83d00&amp;fr=userbar">天使的枷锁</a> <span class="mail"><a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x77;&#x69;&#110;&#x67;&#122;&#x65;&#114;&#x6f;&#x31;&#48;&#52;&#48;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;" class="email">&#37038;&#x7bb1;</a></span></p>
-<h2 id="更新地址更新历史">更新地址＆更新历史</h2>
+<h2 id="下载地址更新历史">下载地址＆更新历史</h2>
 <p>本程序的新版本可以在以下地址获取到：</p>
+<p>编译版＆更新历史：</p>
 <ul>
-<li>编译版＆更新历史：<a href="https://github.com/wz520/thkmc/releases" class="uri">https://github.com/wz520/thkmc/releases</a></li>
-<li>源代码：<a href="https://github.com/wz520/thkmc" class="uri">https://github.com/wz520/thkmc</a></li>
+<li>Github: <a href="https://github.com/wz520/thkmc/releases" class="uri">https://github.com/wz520/thkmc/releases</a></li>
+<li>喵玉殿论坛上的 THKMC 发布帖: <a href="http://bbs.nyasama.com/forum.php?mod=viewthread&amp;tid=78904" class="uri">http://bbs.nyasama.com/forum.php?mod=viewthread&amp;tid=78904</a></li>
+</ul>
+<p>源代码：</p>
+<ul>
+<li>Github: <a href="https://github.com/wz520/thkmc" class="uri">https://github.com/wz520/thkmc</a></li>
 </ul>
 <p>我编写的其他小程序：</p>
 <ul>

@@ -35,7 +35,6 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 * 东方天空璋 1.00a 日文原版、喵玉汉化版
 * 秘封噩梦日记 1.00a 日文原版
 * 东方鬼形兽 0.01a 体验版
-	+ **注意**：目前支持《东方鬼形兽》的 THKMC 尚未在 [Releases] 中发布。需要运行源代码才可支持。具体方法可以参考下面的 `如何运行` 章节）
 * 黄昏酒场 1.00a
 
 ## 文档
@@ -44,11 +43,11 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 
 ## 如何运行
 
-本程序使用 AutoHotkey 语言编写，可以直接使用 AutoHotkey 1.1.25.01 或更高版本的解释器运行。
+本程序使用 AutoHotkey 语言编写，可以直接使用 AutoHotkey 1.1.30.01 或更高版本的解释器运行。
 
 假设你已经把本仓库的代码下载到了你机器上。
-* __如果您不知道如何下载，或者懒得安装 Git，可以直接点击本页面右上方绿色的 `Clone or download` 按钮，然后在弹出的框中选择 `Download ZIP` 即可下载到包含了本程序所有源码的 ZIP 压缩包。__
 
+* __如果您不知道如何下载，或者懒得安装 Git，可以直接点击本页面右上方绿色的 `Clone or download` 按钮，然后在弹出的框中选择 `Download ZIP` 即可下载到包含了本程序所有源码的 ZIP 压缩包。__
 
 1. 点击 [此处](https://autohotkey.com/) 进入 AutoHotkey 的官网。
 2. 点击中间绿色的 `Download`。
@@ -58,7 +57,7 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 
 ## 如何编译
 
-* [AutoHotkey 1.1.25.01+]
+* [AutoHotkey 1.1.30.01+]
 	+ 按照上面 `如何运行` 所描述的步骤安装即可。
 
 * [Compile_AHK 0.9.1.3](https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/)
@@ -70,7 +69,8 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 
 ## 编译版＆更新历史
 
-* [Releases]
+* Github: [Releases]
+* 喵玉殿论坛上的 THKMC 发布帖: <http://bbs.nyasama.com/forum.php?mod=viewthread&tid=78904>
 
 ## 我编写的其他小程序
 
@@ -82,7 +82,7 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 ![支付宝](https://i.loli.net/2019/02/08/5c5d3764d5dd8.png "支付宝")
 
 ### 支付宝扫红包（使用支付宝扫一扫，你我都能得红包）：
-![支付宝扫红包](https://i.loli.net/2019/03/15/5c8b3c84994ff.png)
+![支付宝扫红包](https://i.loli.net/2019/03/15/5c8b3c84994ff.png "支付宝扫红包")
 
-[AutoHotkey 1.1.25.01+]: https://autohotkey.com/
+[AutoHotkey 1.1.30.01+]: https://autohotkey.com/
 [Releases]: https://github.com/wz520/thkmc/releases

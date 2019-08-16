@@ -86,12 +86,13 @@ class THKMC_GameDataBase {
 #include gamedata\gamedata16.ahk
 #include gamedata\gamedata165.ahk
 #include gamedata\gamedata17tr.ahk
+#include gamedata\gamedata17.ahk
 
 #include gamedata\gamedataalcostg.ahk
 
 
 ; 类名 "THKMC_GameDataXXX" 的 XXX 部分
-THKMC_GameIDList := [ "6", "6cn", "7", "8", "95", "10", "11", "12", "125", "128", "13", "14", "143", "15", "16", "165", "17tr", "alcostg" ]
+THKMC_GameIDList := [ "6", "6cn", "7", "8", "95", "10", "11", "12", "125", "128", "13", "14", "143", "15", "16", "165", "17tr", "17", "alcostg" ]
 
 ; 获取所有支持的游戏列表字符串（目前用于“关于”对话框）
 THKMC_GetGameNameList()

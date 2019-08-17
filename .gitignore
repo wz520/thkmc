@@ -10,6 +10,7 @@ tags
 *.exe
 recentfiles*
 thkmc.ini
+config.ini
 README.html
 /style.css
 *.zip

@@ -21,10 +21,11 @@
 #include <PEHelper>
 #include <WZSplashWindow>
 
-title           = THKMC
-helpfilecmd     = https://wz520.github.io/thkmc/help.html
-g_bakfilesuffix = .thkmcbackup ; 备份文件后缀
-g_inifilepath   = thkmc.ini
+title             = THKMC
+helpfilecmd       = https://wz520.github.io/thkmc/help.html
+g_bakfilesuffix   = .thkmcbackup ; 备份文件后缀
+g_inifilepath     = thkmc.ini    ; 键位配置文件
+g_configfilepath  = config.ini   ; 程序配置文件
 
 SetWorkingDir, %A_ScriptDir%
 
@@ -391,22 +392,6 @@ Z=j
 X=k
 C=l
 LSHIFT=i
-
-; 以下是一些程序运行时的配置项，与键位映射无关。
-; 建议在 THKMC 主界面中修改，而不是直接在这里更改设置。
-[thkmc]
-
-; DoBackup：备份方式。备份文件名=原文件名.thkmcbackup
-;   1 = 只在备份文件不存在时备份(默认)
-;   2 = 总是备份(覆盖已有的备份文件)
-;   3 = 不备份
-DoBackup=1
-
-; TestMode：测试模式。开启后会模拟打补丁的过程：会显示修改结果，但不会创建/修改EXE文件和备份文件。
-;   1 = 开启
-;   0 = 关闭
-TestMode=0
-
 )
 
 	fileobj := FileOpen(inifilepath, "w`n", "UTF-16")
@@ -708,17 +693,16 @@ LOpenFileProperties() {
 ;; Load/Save Config
 
 loadConfig(key, default) {
-	global g_inifilepath
-	ensureINIExists()
-	IniRead, chkstate, %g_inifilepath%, thkmc, %key%, %default%
+	global g_configfilepath
+	IniRead, chkstate, %g_configfilepath%, thkmc, %key%, %default%
 	return chkstate
 }
 saveConfig() {
-	global ddlBackup, chkTestMode, g_inifilepath
+	global ddlBackup, chkTestMode, g_configfilepath
 	Gui, Submit, NoHide
 
-	IniWrite, %ddlBackup%, %g_inifilepath%, thkmc, DoBackup
-	IniWrite, %chkTestMode%, %g_inifilepath%, thkmc, TestMode
+	IniWrite, %ddlBackup%, %g_configfilepath%, thkmc, DoBackup
+	IniWrite, %chkTestMode%, %g_configfilepath%, thkmc, TestMode
 }
 
 

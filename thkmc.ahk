@@ -496,6 +496,7 @@ LFileLV() {
 			ShortcutkeyToFuncMap["C"] := Func("LRunCustom")
 			ShortcutkeyToFuncMap["Z"] := Func("LRunNyasama")
 			ShortcutkeyToFuncMap["A"] := Func("LSelectAll")
+			ShortcutkeyToFuncMap["S"] := Func("LOpenShanghaiAlice")
 		}
 		else if ( GetKeyState("Alt") && !GetKeyState("Ctrl") ) {
 			ShortcutkeyToFuncMap["Enter"] := Func("LOpenFileProperties")
@@ -685,8 +686,13 @@ LOpenFolder() {
 		; DllCall("shell32.dll\ShellExecute", "ptr", 0, "str", "open", "str", "Explorer.exe", "str", " /select," . filename, "ptr", 0, "int", 10, "int")
 
 		; NOTE: 不不不，其实 Run 还是有用的，只是我参数没写对。>_<
-		Run, *open explorer.exe /select`,%filename%  
+		Run, *open explorer.exe /select`,%filename%, , UseErrorLevel
 	}
+}
+
+LOpenShanghaiAlice() {
+	cmd = *open %A_AppData%\ShanghaiAlice
+	CriticalRun(cmd)
 }
 
 LOpenFileProperties() {
@@ -863,6 +869,7 @@ Menu, mnuLV, Add, 运行所在目录下的 vpatch.exe`tCtrl+V, LRunVPatch
 Menu, mnuLV, Add, 运行所在目录下的 custom.exe`tCtrl+C, LRunCustom
 Menu, mnuLV, Add, 运行所在目录下的汉化版游戏程序(th???c.exe)`tCtrl+Z, LRunNyasama
 Menu, mnuLV, Add, 打开所在目录`tCtrl+D, LOpenFolder
+Menu, mnuLV, Add, 打开 ShanghaiAlice 目录`tCtrl+S, LOpenShanghaiAlice
 Menu, mnuLV, Add
 Menu, mnuLV, Add, 属性...`tAlt+Enter, LOpenFileProperties
 Menu, mnuLV, Add

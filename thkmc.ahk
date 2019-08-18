@@ -171,7 +171,7 @@ askInputFilename() {
 }
 
 ; filename 不得为空，否则扔异常
-; 有任何错误，则扔异常
+; 本函数无返回值。若有任何错误，则扔异常
 ; NOTE: It's not recommended to call this function directly.  Use tryDoWork() instead.
 _doWork(filename) {
 	if ( filename="" ) {
@@ -187,12 +187,12 @@ _doWork(filename) {
 		gamedata        := new THKMC_GameData%id%()
 		patch_processor := new THKMC_PatchProcessor(&exedata, filesize, gamedata)
 		if ( doProcess(patch_processor, filename, chkTestMode) ) {
-			addFileToList(filename, True)
 			AddLog("`r`n修改成功！`r`n")
 			succeeded := True
 			break
 		}
 	}
+
 	if ( !succeeded ) {
 		wocao := []
 		wocao.Push("此乃何物？吾不识也。")
@@ -220,6 +220,7 @@ addErrorObjectToLog(e, bShow:=False) {
 ; filenames 可以接受多个文件（使用数组）
 tryDoWork(filenames="") {
 	global HasError
+	global chkAlwaysAddToList
 
 	filepaths := !IsObject(filenames)
 			? [filenames]
@@ -231,16 +232,24 @@ tryDoWork(filenames="") {
 		filepaths := askInputFilename()
 	}
 
+	Gui, 1:Default
+	Gui, Submit, NoHide
 	for k, f in filepaths {
+		succeeded := False
 		if ( k > 1 ) {
 			AddLog("`r`n`r`n####################### 分割线 #######################`r`n`r`n")
 		}
 
 		try {
 			_doWork(f)
+			succeeded := True
 		}
 		catch e {
 			addErrorObjectToLog(e)
+		}
+
+		if ( chkAlwaysAddToList || succeeded ) {
+			addFileToList(f, True)
 		}
 	}
 	DoShowLog()
@@ -698,11 +707,12 @@ loadConfig(key, default) {
 	return chkstate
 }
 saveConfig() {
-	global ddlBackup, chkTestMode, g_configfilepath
+	global ddlBackup, chkTestMode, chkAlwaysAddToList, g_configfilepath
 	Gui, Submit, NoHide
 
 	IniWrite, %ddlBackup%, %g_configfilepath%, thkmc, DoBackup
 	IniWrite, %chkTestMode%, %g_configfilepath%, thkmc, TestMode
+	IniWrite, %chkAlwaysAddToList%, %g_configfilepath%, thkmc, AlwaysAddToList
 }
 
 
@@ -767,8 +777,6 @@ GuiContextMenu(GuiHwnd, CtrlHwnd, EventInfo, IsRightClick, X, Y) {
 ; ------------------------
 ; -- ENTRY
 ; ------------------------
-cfgddl := loadConfig("DoBackup", 1)
-cfgtestmode := loadConfig("TestMode", 0)
 
 ; 创建 GUI
 Gui, +Hwndg_hWnd
@@ -781,8 +789,12 @@ Gui, Add, Button, gRunHelpAndExit hwndhBtnHelp x+10 y5, 帮助(&H)
 Gui, Add, Custom, ClassSysLink hwndhSysLinkAbout gLSysLinkEvent x+5 w50 r1 y10, <a>关于...</a>
 
 Gui, Add, Text, xm+0, 备份到 *%g_bakfilesuffix% ？
-Gui, Add, DropDownList, AltSubmit vddlBackup x+10 yp-3 w210 Choose%cfgddl%, 只在备份文件不存在时备份(推荐)|总是备份(若备份已存在则覆盖)|不备份(不推荐)
-Gui, Add, Checkbox, x+10 yp-3 h30 vchkTestMode Checked%cfgtestmode%, 测试模式(&T)
+cfgvalue := loadConfig("DoBackup", 1)
+Gui, Add, DropDownList, AltSubmit vddlBackup x+10 yp-3 w210 Choose%cfgvalue%, 只在备份文件不存在时备份(推荐)|总是备份(若备份已存在则覆盖)|不备份(不推荐)
+cfgvalue := loadConfig("TestMode", 0)
+Gui, Add, Checkbox, x+10 yp-3 h30 vchkTestMode Checked%cfgvalue%, 测试模式(&T)
+cfgvalue := loadConfig("AlwaysAddToList", 0)
+Gui, Add, Checkbox, x+10 h30 vchkAlwaysAddToList Checked%cfgvalue%, 总是添加至列表(&P)
 
 Gui, Add, Text, x10, 查看更新：
 Gui, Add, Custom, ClassSysLink hwndhSysLink gLSysLinkEvent x+5 w40 r1, <a>喵玉殿</a>
@@ -799,7 +811,9 @@ Gui, +Resize +OwnDialogs
 
 ; GUI ToolTip
 GuiControlGet, hCtrl, Hwnd, chkTestMode
-AttachTipToControl(hCtrl, "模拟打补丁的过程：会显示修改结果，但不会创建/修改EXE文件和备份文件")
+AttachTipToControl(hCtrl, "模拟打补丁的过程：会显示修改结果，但不会创建/修改EXE文件和备份文件。`r`n【提示】若打补丁成功，仍会将文件路径添加至文件列表。")
+GuiControlGet, hCtrl, Hwnd, chkAlwaysAddToList
+AttachTipToControl(hCtrl, "即使打补丁失败也会将文件路径添加至文件列表。`r`n若不勾选此项， THKMC 只会在打补丁成功后才将文件路径添加至文件列表。")
 AttachTipToControl(hBtnApply, "将 .INI 中的映射配置重新应用到选中的程序上")
 AttachTipToControl(hBtnRun, "运行选中的游戏程序")
 AttachTipToControl(hBtnRefresh, "刷新“最近打开的文件”列表")

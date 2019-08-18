@@ -758,11 +758,32 @@ GuiSize(GuiHwnd, EventInfo, Width, Height) {
 
 ; 拖拽处理
 GuiDropFiles(GuiHwnd, FileArray, CtrlHwnd, X, Y) {
-	; For i, f in FileArray {
-	; 	tryDoWork(f)
-	; }
-	if (confirmApply(FileArray)) {
-		tryDoWork(FileArray)
+	_files := []
+
+	splash=
+	for k, f in FileArray {
+		attr := FileExist(f)
+		if ( InStr(attr, "D") ) {
+			if ( !IsObject(splash) ) {
+				splash := new WZSplashWindow("SearchingEXE" , "正在搜索 .exe 文件", "少女祈祷中...")
+				splash.Show()
+			}
+
+			loop, Files, %f%\*.exe, R
+			{
+				_files.Push(A_LoopFileFullPath)
+			}
+		}
+		else {
+			_files.Push(f)
+		}
+	}
+	if ( IsObject(splash) ) {
+		splash.Destroy()
+	}
+
+	if (confirmApply(_files)) {
+		tryDoWork(_files)
 	}
 }
 

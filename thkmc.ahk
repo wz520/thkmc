@@ -680,8 +680,12 @@ LOpenFolder() {
 	for c, row in LVRow {
 		LV_GetText(filename, row)
 
-		; Run, *open explorer.exe /select,%filename%  ; NOTE: Run 貌似没用
-		DllCall("shell32.dll\ShellExecute", "ptr", 0, "str", "open", "str", "Explorer.exe", "str", " /select," . filename, "ptr", 0, "int", 10, "int")
+		; NOTE: Run 貌似没用，换成 DllCall()
+		; Run, *open explorer.exe /select,%filename%  
+		; DllCall("shell32.dll\ShellExecute", "ptr", 0, "str", "open", "str", "Explorer.exe", "str", " /select," . filename, "ptr", 0, "int", 10, "int")
+
+		; NOTE: 不不不，其实 Run 还是有用的，只是我参数没写对。>_<
+		Run, *open explorer.exe /select`,%filename%  
 	}
 }
 

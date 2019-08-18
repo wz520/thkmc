@@ -702,8 +702,13 @@ LOpenFileProperties() {
 ;; Load/Save Config
 
 loadConfig(key, default) {
-	global g_configfilepath
-	IniRead, chkstate, %g_configfilepath%, thkmc, %key%, %default%
+	global g_configfilepath, g_inifilepath
+	IniRead, chkstate, %g_configfilepath%, thkmc, %key%
+
+	if ( chkstate = "ERROR" ) {
+		IniRead, chkstate, %g_inifilepath%, thkmc, %key%, %default%
+	}
+
 	return chkstate
 }
 saveConfig() {

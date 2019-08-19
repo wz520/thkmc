@@ -889,16 +889,16 @@ Menu, mnuLV, Add, 刷新`tF5, refreshFileList
 Menu, mnuLV, Add
 Menu, mnuLV, Add, 关于..., LAbout
 
-OnExit, LOnExit
+OnExit("LOnExit")
 
 loadFileList()
 
 return
 
-LOnExit:
+LOnExit(ExitReason, ExitCode) {
 	saveFileList()
 	saveConfig()
-	ExitApp
+}
 
 GuiClose:
 GuiEscape:

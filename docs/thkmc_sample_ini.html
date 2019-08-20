@@ -14,7 +14,6 @@ pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-
 body { font-family: monospace; color: #ffffff; background-color: #000000; }
 * { font-size: 1em; }
 .Type { color: #00ff00; font-weight: bold; }
-.Number { color: #a1df2d; background-color: #222222; padding-bottom: 1px; }
 .String { color: #bebebe; background-color: #1a1a1a; padding-bottom: 1px; }
 .Comment { color: #80a0ff; }
 .Special { color: #ffa500; background-color: #333333; padding-bottom: 1px; }
@@ -31,7 +30,7 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 <span class="Comment">; 如果你能耐心看完下面的所有注释（分号开头的每一行），相信用起 THKMC 来会更加得心应手。</span>
 <span class="Comment">; 推荐使用带语法高亮的文本编辑器来阅读本文件。</span>
 <span class="Comment">; </span>
-<span class="Comment">; 本文件适用的 THKMC 版本：1.30</span>
+<span class="Comment">; 本文件适用的 THKMC 版本：1.40</span>
 
 
 <span class="Comment">; [Default] - 全局键位配置</span>
@@ -93,6 +92,7 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 <span class="Comment">; th16    : 东方天空璋 1.00a 日文原版、喵玉汉化版</span>
 <span class="Comment">; th165   : 秘封噩梦日记 1.00a 日文原版、喵玉汉化版</span>
 <span class="Comment">; th17tr  ; 东方鬼形兽 0.01a 体验版</span>
+<span class="Comment">; th17    ; 东方鬼形兽 1.00b 日文原版</span>
 <span class="Comment">; alcostg : 黄昏酒场 1.00a</span>
 <span class="Comment">;</span>
 <span class="Comment">; 例如：</span>
@@ -166,20 +166,6 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 
 
 
-<span class="Comment">; [thkmc] 段是一些程序运行时的配置项，与键位映射无关。</span>
-<span class="Comment">; 建议在 THKMC 主界面中修改，而不是直接在这里更改设置。</span>
-<span class="Special">[thkmc]</span>
-
-<span class="Comment">; DoBackup：备份方式。备份文件名=原文件名.thkmcbackup</span>
-<span class="Comment">;   1 = 只在备份文件不存在时备份(默认)</span>
-<span class="Comment">;   2 = 总是备份(覆盖已有的备份文件)</span>
-<span class="Comment">;   3 = 不备份</span>
-<span class="Type">DoBackup</span>=<span class="Number">1</span>
-
-<span class="Comment">; TestMode：测试模式。开启后会模拟打补丁的过程：会显示修改结果，但不会创建/修改EXE文件和备份文件。</span>
-<span class="Comment">;   1 = 开启</span>
-<span class="Comment">;   0 = 关闭</span>
-<span class="Type">TestMode</span>=<span class="Number">0</span>
 
 
 <span class="Comment">; 最后总结一下，除了 [thkmc] 外，每个段中的设置项的写法有以下三种：</span>

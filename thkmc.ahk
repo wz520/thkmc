@@ -938,7 +938,7 @@ LAbout() {
 
 	MsgBox, 64, %title%,
 (LTrim
-	THKMC - 东方STG专用键盘键位映射修改工具 1.31 alpha
+	THKMC - 东方STG专用键盘键位映射修改工具 1.40
 
 	AutoHotkey 版本：%ahkver%
 

@@ -35,6 +35,7 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 * 东方天空璋 1.00a 日文原版、喵玉汉化版
 * 秘封噩梦日记 1.00a 日文原版
 * 东方鬼形兽 0.01a 体验版
+* 东方鬼形兽 1.00b 日文原版
 * 黄昏酒场 1.00a
 
 ## 文档
@@ -70,7 +71,7 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 ## 编译版＆更新历史
 
 * Github: [Releases]
-* 喵玉殿论坛上的 THKMC 发布帖: <http://bbs.nyasama.com/forum.php?mod=viewthread&tid=78904>
+* [喵玉殿论坛上的THKMC发布帖]
 
 ## 我编写的其他小程序
 
@@ -86,3 +87,4 @@ THKMC(TouHou Keyboard Mapping Changer) 是一个为东方STG量身定做的键�
 
 [AutoHotkey 1.1.30.01+]: https://autohotkey.com/
 [Releases]: https://github.com/wz520/thkmc/releases
+[喵玉殿论坛上的THKMC发布帖]: http://bbs.nyasama.com/forum.php?mod=viewthread&tid=78904

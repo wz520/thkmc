@@ -35,7 +35,7 @@
 </ul>
 </nav>
 <h1 id="thkmc---东方stg专用键盘映射修改工具">THKMC - 东方STG专用键盘映射修改工具</h1>
-<p>当前版本: <code>1.30</code></p>
+<p>当前版本: <code>1.40</code></p>
 <h2 id="功能">功能</h2>
 <p>众所周知，ZUN 制作的 东方STG 从来就不自带更改键盘键位的功能。为此，各路大神都写过各种键盘映射工具，但大多是外挂式的。随着新版本的 Windows 对系统安全性的要求越来越高，这些外挂式的改键工具都可能存在兼容性问题。</p>
 <p>THKMC(TouHou Keyboard Mapping Changer) 通过修改东方STG游戏主程序文件中与键盘映射相关的代码，实现自定义游戏键位。</p>
@@ -46,7 +46,10 @@
 <p>本程序可修改的键位不仅包括在STG中用到的各种控制键（↑、↓、←、→、Z、X、C、SHIFT、CTRL、ESC等），还包括：</p>
 <ul>
 <li>截图键（<code>Home</code>或<code>P</code>）</li>
-<li><code>R</code>（ <code>ESC+R</code> 可以快速 RETRY）</li>
+<li><code>R</code>（ <code>ESC+R</code> 可以快速 RETRY）
+<ul>
+<li>鬼形兽 1.00b 除外。因为游戏本来就不支持该功能，疑似BUG。详见 <a href="https://thwiki.cc/%E5%AE%98%E6%96%B9%E6%B8%B8%E6%88%8F/%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95">THBWIKI：官方游戏错误解决办法</a> 页面</li>
+</ul></li>
 <li><code>D</code>（永夜抄 RESULT 画面会用到，可以将游戏纪录保存到文件中）</li>
 <li>以及其他游戏中用到的一切键位。
 <ul>
@@ -84,6 +87,7 @@
 <li>东方天空璋 1.00a 日文原版、喵玉汉化版</li>
 <li>秘封噩梦日记 1.00a 日文原版</li>
 <li>东方鬼形兽 0.01a 体验版</li>
+<li>东方鬼形兽 1.00b 日文原版</li>
 <li>黄昏酒场 1.00a</li>
 </ul>
 <p><strong>注意</strong>：若有哪一作未提到支持汉化版，只是未测试而已，多数情况下只要游戏版本号相同应该也能支持</p>
@@ -141,12 +145,16 @@
 <li>{未指定} 就是INI文件中没有设置重映射，但是本游戏程序支持该键被重映射。比如说这个结果窗口里写了 <code>{未指定} F10</code>，就说明东方鬼形兽支持 <code>F10</code> 键（切换全屏/窗口） 被重映射，如果你想要改成比如 <code>F12</code>，你可以在INI文件里写 <code>F10=F12</code> ，那么以后按 <code>F12</code> 就可以切换全屏了。</li>
 <li>另外要注意，能被重映射的键位，不一定表示该键位一定有功能。比如 <code>D</code> 键，曾经在永夜抄里有作用，而后来的作品基本都用不到了。但是你可以看到东方鬼形兽还会监视 <code>D</code> 键，但是其实是没有功能的。所以我们可以写 <code>RIGHT=D</code> 来赋予 <code>D</code> 键新的功能。</li>
 </ul></li>
-<li>如果 INI 中设置了备份选项，那么在覆盖前会自动备份。</li>
-<li>如果主窗口的 <code>测试模式</code> 复选框处于选中状态，也会弹出该结果框，但并不会真正地修改游戏主程序，备份文件也不会被生成。</li>
+<li>在覆盖原文件前， THKMC 会根据主界面中 <code>备份到 *.thkmcbackup？</code> 的设置，执行自动备份。</li>
+<li>如果主窗口的 <code>测试模式</code> 复选框处于选中状态，也会弹出该结果框，但并不会真正地修改游戏主程序，备份文件也不会被生成（且结果框底色通常会是<span style="color:lightgreen">原谅绿</span>）。</li>
 </ul></li>
 <li>成功应用补丁的EXE会添加到列表中。
 <ul>
 <li><img src="https://i.loli.net/2019/05/18/5cdfff402e49144657.png" title="主界面2" /></li>
+<li>如果主窗口的 <code>总是添加至列表</code> 复选框处于选中状态，那么即使打补丁失败，其文件路径也会添加的列表中。
+<ul>
+<li>什么？你说“上面的图里找不到 <code>总是添加至列表</code> 复选框”？嘛，还是那句话：<code>图片仅供参考，请以实物为准</code>hhhhh <del>天之声：你就不会说你懒得再截图吗</del></li>
+</ul></li>
 <li>以后如果要换一套键位，可以先修改 INI 文件（记得保存文件！），然后通过上面的“应用补丁”按钮或者右键菜单中的“应用改键补丁”命令再次应用补丁，这样就可以使用新键位了。</li>
 <li>也可以通过双击直接运行该程序，甚至还可以在右键菜单中运行 vpatch、custom.exe 等。所以也可以把 THKMC 当一个简单的 <code>东方STG游戏启动器</code> 来使用。</li>
 </ul></li>
@@ -157,7 +165,7 @@
 <ul>
 <li>【<strong>注意</strong>】一个例外是红魔乡渔场汉化版，这个版本的 EXE 因为是加过壳的，所以无法直接修改，必须要脱过壳的版本才可以。
 <ul>
-<li>而且网上流传的红魔乡渔场汉化版与最新的日文版版本号不同，并非 1.02h （这也是为什么只有红魔乡的汉化版不能使用VP的原因）。为此有人针对 1.02h 做过一个汉化版，可以使用 VP。获取方式请自行搜索。</li>
+<li>而且网上流传的红魔乡渔场汉化版与最新的日文版版本号不同，并非 1.02h （这也是为什么只有红魔乡的汉化版不能使用VP的原因）。为此有人针对 1.02h 做过一个汉化版，可以使用 VP。获取方式请参考 <a href="http://bbs.nyasama.com/forum.php?mod=viewthread&amp;tid=78904">喵玉殿论坛上的THKMC发布帖</a> 。</li>
 </ul></li>
 </ul></li>
 <li><p>根据打补丁成功与否，“结果”窗口的底色（非文本框颜色）会有所不同。</p>
@@ -177,7 +185,10 @@
 <ul>
 <li>可以一次打开多个文件。</li>
 <li>可以一次对多个文件应用补丁。其结果会统一显示在一个结果窗口中。</li>
-<li>支持文件拖拽。</li>
+<li>支持文件拖拽。
+<ul>
+<li>（1.40版起）如果拖入的是目录，会自动遍历其中的所有 .exe 文件（包括子目录）。</li>
+</ul></li>
 </ul>
 <h2 id="ini设置项说明">INI设置项说明</h2>
 <p>请参阅软件目录下的 <code>thkmc_sample.ini</code> 文件。</p>
@@ -207,7 +218,7 @@
 <p>编译版＆更新历史：</p>
 <ul>
 <li>Github: <a href="https://github.com/wz520/thkmc/releases" class="uri">https://github.com/wz520/thkmc/releases</a></li>
-<li>喵玉殿论坛上的 THKMC 发布帖: <a href="http://bbs.nyasama.com/forum.php?mod=viewthread&amp;tid=78904" class="uri">http://bbs.nyasama.com/forum.php?mod=viewthread&amp;tid=78904</a></li>
+<li><a href="http://bbs.nyasama.com/forum.php?mod=viewthread&amp;tid=78904">喵玉殿论坛上的THKMC发布帖</a></li>
 </ul>
 <p>源代码：</p>
 <ul>
